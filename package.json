@@ -1,0 +1,31 @@
+{
+	"name": "scripturizer",
+	"version": "0.1.0",
+	"description": "Detects Bible references in your notes and inserts linked, formatted passage text via API.Bible and ref.ly.",
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "node --experimental-vm-modules node_modules/.bin/jest",
+		"version": "node version-bump.mjs && git add manifest.json versions.json package.json",
+		"lint": "eslint .",
+		"audit": "npm audit --omit=dev --audit-level=moderate"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@types/jest": "^29.5.0",
+		"@types/node": "^20.0.0",
+		"builtin-modules": "^4.0.0",
+		"esbuild": "^0.24.0",
+		"eslint": "^9.0.0",
+		"eslint-plugin-no-unsanitized": "^4.0.2",
+		"eslint-plugin-security": "^3.0.1",
+		"jest": "^29.7.0",
+		"obsidian": "latest",
+		"ts-jest": "^29.1.0",
+		"tslib": "^2.6.0",
+		"typescript": "^5.5.0",
+		"typescript-eslint": "^8.0.0"
+	}
+}
