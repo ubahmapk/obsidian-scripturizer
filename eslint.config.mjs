@@ -44,4 +44,11 @@ export default tseslint.config(
 			"no-var": "error",
 		},
 	},
+	// Root-level config/build scripts (esbuild, eslint, jest, version-bump) are plain JS
+	// and are not part of the tsconfig project — drop type-aware linting for them so
+	// `project: true` doesn't fail to resolve them.
+	{
+		files: ["**/*.mjs"],
+		...tseslint.configs.disableTypeChecked,
+	},
 );
