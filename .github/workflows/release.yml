@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir dist
           cp main.js manifest.json dist/
-          [ -f styles.css ] && cp styles.css dist/ || true
+          [ -s styles.css ] && cp styles.css dist/ || true
 
       - uses: softprops/action-gh-release@v2
         with:
