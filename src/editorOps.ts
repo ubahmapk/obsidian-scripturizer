@@ -18,10 +18,17 @@ export interface CalloutBuilder {
 	buildCallouts(matches: ParsedReference[], settings: ScripturizerSettings): Promise<Map<number, string[]>>;
 }
 
-interface Edit {
+export interface Edit {
 	start: number;
 	end: number;
 	text: string;
+}
+
+export interface ScripturizerPlan {
+	edits: Edit[];
+	linked: number;
+	calloutsInserted: number;
+	calloutsFailed: number;
 }
 
 interface LineBounds {
@@ -85,9 +92,10 @@ function inlineLinkText(match: ParsedReference): string {
 }
 
 /**
- * Finds unprotected references in `text`, builds a replacement plan, and applies it to
- * `editor` with offsets shifted by `baseOffset` (0 for a whole-note scan; the offset of a
- * single line's start for a line-scoped scan).
+ * Pure async edit-planner: finds unprotected references in `text` and returns the replacement
+ * edits WITHOUT touching any editor. `text` is a fragment starting at `baseOffset` in the
+ * real document, so every edit's `start`/`end` are ORIGINAL-document coordinates (baseOffset
+ * already added) and may be applied atomically as one change set.
  *
  * When `calloutBuilder` is provided, only "callout-eligible" matches (see `isCalloutEligible`)
  * are ever fetched or given a callout — replaced in place by the callout block(s), whose own
@@ -97,17 +105,16 @@ function inlineLinkText(match: ParsedReference): string {
  * callout when it starts a fresh blockquote block. Every other match (mid-sentence, an
  * unsupported translation, or a fetch failure) is just linked inline — no callout attempted.
  */
-export async function runScripturize(
-	editor: Editor,
+export async function planScripturize(
 	text: string,
 	baseOffset: number,
 	settings: ScripturizerSettings,
 	calloutBuilder?: CalloutBuilder,
-): Promise<{ linked: number; calloutsInserted: number; calloutsFailed: number }> {
+): Promise<ScripturizerPlan> {
 	const matches = filterUnprotected(findReferences(text, settings.defaultTranslation), computeProtectedRanges(text));
 
 	if (matches.length === 0) {
-		return { linked: 0, calloutsInserted: 0, calloutsFailed: 0 };
+		return { edits: [], linked: 0, calloutsInserted: 0, calloutsFailed: 0 };
 	}
 
 	const eligibleMatches = calloutBuilder ? matches.filter((m) => isCalloutEligible(text, m)) : [];
@@ -172,10 +179,32 @@ export async function runScripturize(
 		calloutsInserted += blocks.length;
 	}
 
-	edits.sort((a, b) => b.start - a.start);
-	for (const edit of edits) {
-		editor.replaceRange(edit.text, editor.offsetToPos(edit.start), editor.offsetToPos(edit.end));
-	}
+	// Ascending order: the caller applies the whole set as ONE atomic transaction, so every
+	// edit keeps its original-document coordinate validity regardless of application order
+	// (a descending order only made sense for sequential replaceRange application).
+	edits.sort((a, b) => a.start - b.start);
 
-	return { linked: matches.length, calloutsInserted, calloutsFailed };
+	return { edits, linked: matches.length, calloutsInserted, calloutsFailed };
+}
+
+/**
+ * Thin applier over `planScripturize`: runs the pure planner, then commits every edit in ONE
+ * `editor.transaction` call (a single undo step in Obsidian). Zero edits → zero transaction
+ * calls, so a no-op run never leaves an empty undo step. Offsets shifted by `baseOffset`
+ * (0 for a whole-note scan; the offset of a single line's start for a line-scoped scan).
+ */
+export async function runScripturize(
+	editor: Editor,
+	text: string,
+	baseOffset: number,
+	settings: ScripturizerSettings,
+	calloutBuilder?: CalloutBuilder,
+): Promise<{ linked: number; calloutsInserted: number; calloutsFailed: number }> {
+	const plan = await planScripturize(text, baseOffset, settings, calloutBuilder);
+	if (plan.edits.length > 0) {
+		editor.transaction({
+			changes: plan.edits.map((e) => ({ from: editor.offsetToPos(e.start), to: editor.offsetToPos(e.end), text: e.text })),
+		});
+	}
+	return { linked: plan.linked, calloutsInserted: plan.calloutsInserted, calloutsFailed: plan.calloutsFailed };
 }

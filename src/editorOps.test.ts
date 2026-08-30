@@ -1,4 +1,4 @@
-import { runScripturize, type CalloutBuilder } from "./editorOps";
+import { planScripturize, runScripturize, type CalloutBuilder, type ScripturizerPlan } from "./editorOps";
 import type { ScripturizerSettings } from "./settings";
 import type { ParsedReference } from "./parser/referenceParser";
 import { makeFakeEditor } from "./testSupport/editorFake";
@@ -163,5 +163,84 @@ describe("runScripturize", () => {
 			"Intro text\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n" +
 				"> [!bible-ref]+ [link](url)\n> body for Rom 8:29\n\nOutro text",
 		);
+	});
+});
+
+describe("planScripturize (pure planning, single-transaction apply)", () => {
+	const MULTI_CALLOUT_TEXT = "Intro text\nRom 8:28\nRom 8:29\nOutro text";
+	const MULTI_CALLOUT_EXPECTED =
+		"Intro text\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n" +
+		"> [!bible-ref]+ [link](url)\n> body for Rom 8:29\n\nOutro text";
+
+	function makeLinkCalloutBuilder(): CalloutBuilder {
+		return makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+	}
+
+	test("planScripturize returns edits in ascending start order with correct counts, without touching any editor", async () => {
+		const plan = await planScripturize(MULTI_CALLOUT_TEXT, 0, DEFAULT_SETTINGS, makeLinkCalloutBuilder());
+
+		expect(plan.edits.map((e) => e.start)).toEqual([...plan.edits.map((e) => e.start)].sort((a, b) => a - b));
+		expect(plan.linked).toBe(2);
+		expect(plan.calloutsInserted).toBe(2);
+		expect(plan.calloutsFailed).toBe(0);
+		// "Intro text" is 10 chars, so the first edit must start exactly after "Intro text\n"
+		// (offset 10), proving the callout edit is the leading-blank re-emission, not a mutated
+		// editor.
+		expect(plan.edits[0]?.start).toBe(10);
+		expect(plan.edits[0]?.text.startsWith("\n\n> [!bible-ref]+")).toBe(true);
+	});
+
+	test("runScripturize applies the whole plan in exactly ONE transaction call", async () => {
+		const editor = makeFakeEditor(MULTI_CALLOUT_TEXT);
+
+		const result = await runScripturize(editor, MULTI_CALLOUT_TEXT, 0, DEFAULT_SETTINGS, makeLinkCalloutBuilder());
+
+		expect(editor.getValue()).toBe(MULTI_CALLOUT_EXPECTED);
+		expect(editor.transactionCalls).toHaveLength(1);
+		const plan: ScripturizerPlan = await planScripturize(MULTI_CALLOUT_TEXT, 0, DEFAULT_SETTINGS, makeLinkCalloutBuilder());
+		expect(editor.transactionCalls[0]?.changes).toHaveLength(plan.edits.length);
+		expect(result).toEqual({ linked: 2, calloutsInserted: 2, calloutsFailed: 0 });
+	});
+
+	test("zero-edit plan fires ZERO transaction calls (no empty undo steps)", async () => {
+		const text = "no refs here";
+		const editor = makeFakeEditor(text);
+
+		const result = await runScripturize(editor, text, 0, DEFAULT_SETTINGS, makeLinkCalloutBuilder());
+
+		expect(result).toEqual({ linked: 0, calloutsInserted: 0, calloutsFailed: 0 });
+		expect(editor.getValue()).toBe(text);
+		expect(editor.transactionCalls).toHaveLength(0);
+	});
+
+	test("transaction changes are pairwise non-overlapping in original-document coordinates", async () => {
+		const editor = makeFakeEditor(MULTI_CALLOUT_TEXT);
+
+		await runScripturize(editor, MULTI_CALLOUT_TEXT, 0, DEFAULT_SETTINGS, makeLinkCalloutBuilder());
+
+		expect(editor.transactionCalls).toHaveLength(1);
+		const changes = editor.transactionCalls[0]?.changes ?? [];
+		const spans = changes.map((c) => {
+			// Convert back to offsets using the fake's original (pre-change) coordinate space:
+			// fold each change's from/to against the pristine fixture string.
+			const toOffset = (pos: { line: number; ch: number }): number => {
+				let offset = 0;
+				let lineNum = 0;
+				for (const line of MULTI_CALLOUT_TEXT.split("\n")) {
+					if (lineNum >= pos.line) break;
+					offset += line.length + 1;
+					lineNum++;
+				}
+				return offset + pos.ch;
+			};
+			return { start: toOffset(c.from), end: toOffset(c.to ?? c.from) };
+		});
+		let prevEnd: number | undefined;
+		for (const span of spans) {
+			if (prevEnd !== undefined) {
+				expect(span.start).toBeGreaterThanOrEqual(prevEnd);
+			}
+			prevEnd = span.end;
+		}
 	});
 });
