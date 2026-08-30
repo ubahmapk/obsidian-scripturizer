@@ -114,7 +114,8 @@ link/callout.
 
 Obsidian only renders a `[!bible-ref]` marker as a new callout when it starts a fresh blockquote
 block — a single newline is not enough to separate it from surrounding content or from another
-callout. Scripturizer normalizes spacing accordingly whenever it inserts a callout:
+callout. The same spacing rules apply when Scripturizer runs on a selection rather than the whole
+note. Scripturizer normalizes spacing accordingly whenever it inserts a callout:
 
 - Exactly one blank line is inserted **before** the callout, separating it from whatever
   precedes it (a heading, plain text, another callout, etc.) — unless the callout is the very

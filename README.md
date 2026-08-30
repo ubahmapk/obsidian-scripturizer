@@ -18,9 +18,11 @@ Matching is case-sensitive against each book's conventional capitalization (e.g.
 
 ## Commands
 
-- **Scripturize note (with text)** — scans the whole active note. Each recognized reference is
-  replaced with a hyperlink, and a `> [!bible-ref]` callout with the fetched passage text is
-  inserted immediately after it.
+- **Scripturize note (with text)** — scans the active selection when text is selected (multiple
+  selections are all handled in one run and one undo step); with no selection, it scans the whole
+  note as before. Each recognized reference fully inside the scanned text is replaced with a
+  hyperlink, and a `> [!bible-ref]` callout with the fetched passage text is inserted immediately
+  after it. References already linked or inside an existing callout are still skipped.
 - **Link references only (current line)** — only looks at the line the cursor is on, and only
   inserts the hyperlink (no API.Bible call, no callout).
 
