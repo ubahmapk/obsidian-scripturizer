@@ -1,0 +1,36 @@
+{
+    "query": "Matthew 6:9\u201313",
+    "canonical": "Matthew 6:9\u201313",
+    "parsed": [
+        [
+            40006009,
+            40006013
+        ]
+    ],
+    "passage_meta": [
+        {
+            "canonical": "Matthew 6:9\u201313",
+            "chapter_start": [
+                40006001,
+                40006034
+            ],
+            "chapter_end": [
+                40006001,
+                40006034
+            ],
+            "prev_verse": 40006008,
+            "next_verse": 40006014,
+            "prev_chapter": [
+                40005001,
+                40005048
+            ],
+            "next_chapter": [
+                40007001,
+                40007029
+            ]
+        }
+    ],
+    "passages": [
+        "<p id=\"p40006009_01-1\" class=\"virtual\"><b class=\"verse-num woc\" id=\"v40006009-1\">9&nbsp;</b><span class=\"woc\">Pray then like this:</span></p>\n<p class=\"block-indent\"><span class=\"begin-line-group\"></span>\n<span id=\"p40006009_01-1\" class=\"line\">&nbsp;&nbsp;<span class=\"woc\">\u201cOur Father in heaven,</span><br /><span id=\"p40006009_01-1\" class=\"line\"><span class=\"woc\">&nbsp;&nbsp;hallowed be your name.</span></span><br /><span id=\"p40006010_01-1\" class=\"line\"><b class=\"verse-num inline woc\" id=\"v40006010-1\">10&nbsp;</b>&nbsp;&nbsp;<span class=\"woc\">Your kingdom come,</span><br /><span id=\"p40006010_01-1\" class=\"line\"><span class=\"woc\">&nbsp;&nbsp;your will be done,</span><br /><span id=\"p40006010_01-1\" class=\"indent line\"><span class=\"woc\">&nbsp;&nbsp;&nbsp;&nbsp;on earth as it is in heaven.</span></span><br /><span id=\"p40006011_01-1\" class=\"line\"><b class=\"verse-num inline woc\" id=\"v40006011-1\">11&nbsp;</b>&nbsp;&nbsp;<span class=\"woc\">Give us this day our daily bread,</span></span><br /><span id=\"p40006012_01-1\" class=\"line\"><b class=\"verse-num inline woc\" id=\"v40006012-1\">12&nbsp;</b>&nbsp;&nbsp;<span class=\"woc\">and forgive us our debts,</span><br /><span id=\"p40006012_01-1\" class=\"indent line\"><span class=\"woc\">&nbsp;&nbsp;&nbsp;&nbsp;as we also have forgiven our debtors.</span></span><br /><span id=\"p40006013_01-1\" class=\"line\"><b class=\"verse-num inline woc\" id=\"v40006013-1\">13&nbsp;</b>&nbsp;&nbsp;<span class=\"woc\">And lead us not into temptation,</span><br /><span id=\"p40006013_01-1\" class=\"indent line\"><span class=\"woc\">&nbsp;&nbsp;&nbsp;&nbsp;but deliver us from evil.</span><br /></span></span></span></span></span></span></p><span class=\"end-line-group\"></span>\n"
+    ]
+}

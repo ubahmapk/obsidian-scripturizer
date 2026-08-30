@@ -1,0 +1,36 @@
+{
+    "query": "Song of Solomon 1:1\u20134",
+    "canonical": "Song of Solomon 1:1\u20134",
+    "parsed": [
+        [
+            22001001,
+            22001004
+        ]
+    ],
+    "passage_meta": [
+        {
+            "canonical": "Song of Solomon 1:1\u20134",
+            "chapter_start": [
+                22001001,
+                22001017
+            ],
+            "chapter_end": [
+                22001001,
+                22001017
+            ],
+            "prev_verse": 21012014,
+            "next_verse": 22001005,
+            "prev_chapter": [
+                21012001,
+                21012014
+            ],
+            "next_chapter": [
+                22002001,
+                22002017
+            ]
+        }
+    ],
+    "passages": [
+        "<p id=\"p22001001_01-1\" class=\"starts-chapter\"><b class=\"chapter-num\" id=\"v22001001-1\">1:1&nbsp;</b>The Song of Songs, which is Solomon\u2019s.</p>\n<p class=\"block-indent\"><h4 id=\"p22001001_06-1\" class=\"speaker\">She</h4>\n<span class=\"begin-line-group\"></span>\n<span id=\"p22001002_06-1\" class=\"line\"><b class=\"verse-num inline\" id=\"v22001002-1\">2&nbsp;</b>&nbsp;&nbsp;Let him kiss me with the kisses of his mouth!</span><br /><span id=\"p22001002_06-1\" class=\"line\">&nbsp;&nbsp;For your love is better than wine;</span><br /><span id=\"p22001003_06-1\" class=\"indent line\"><b class=\"verse-num inline\" id=\"v22001003-1\">3&nbsp;</b>&nbsp;&nbsp;&nbsp;&nbsp;your anointing oils are fragrant;</span><br /><span id=\"p22001003_06-1\" class=\"line\">&nbsp;&nbsp;your name is oil poured out;</span><br /><span id=\"p22001003_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;therefore virgins love you.</span><br /><span id=\"p22001004_06-1\" class=\"line\"><b class=\"verse-num inline\" id=\"v22001004-1\">4&nbsp;</b>&nbsp;&nbsp;Draw me after you; let us run.</span><br /><span id=\"p22001004_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;The king has brought me into his chambers.</span><br /><span class=\"end-line-group\"></span>\n<h4 id=\"p22001004_06-1\" class=\"speaker\">Others</h4>\n<span class=\"begin-line-group\"></span>\n<span id=\"p22001004_06-1\" class=\"line\">&nbsp;&nbsp;We will exult and rejoice in you;</span><br /><span id=\"p22001004_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;we will extol your love more than wine;</span><br /><span id=\"p22001004_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;rightly do they love you.</span><br /></p><span class=\"end-line-group\"></span>\n"
+    ]
+}

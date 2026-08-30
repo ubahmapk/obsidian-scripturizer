@@ -1,0 +1,36 @@
+{
+    "query": "Psalm 3:1\u20132",
+    "canonical": "Psalm 3:1\u20132",
+    "parsed": [
+        [
+            19003001,
+            19003002
+        ]
+    ],
+    "passage_meta": [
+        {
+            "canonical": "Psalm 3:1\u20132",
+            "chapter_start": [
+                19003001,
+                19003008
+            ],
+            "chapter_end": [
+                19003001,
+                19003008
+            ],
+            "prev_verse": 19002012,
+            "next_verse": 19003003,
+            "prev_chapter": [
+                19002001,
+                19002012
+            ],
+            "next_chapter": [
+                19004001,
+                19004008
+            ]
+        }
+    ],
+    "passages": [
+        "<h4 id=\"p19003001_06-1\" class=\"psalm-title\">A Psalm of David, when he fled from Absalom his son.</h4>\n<p class=\"block-indent\"><span class=\"begin-line-group\"></span>\n<span id=\"p19003001_06-1\" class=\"line\"><b class=\"chapter-num\" id=\"v19003001-1\">3:1&nbsp;</b>&nbsp;&nbsp;O LORD, how many are my foes!</span><br /><span id=\"p19003001_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;Many are rising against me;</span><br /><span id=\"p19003002_06-1\" class=\"line\"><b class=\"verse-num inline\" id=\"v19003002-1\">2&nbsp;</b>&nbsp;&nbsp;many are saying of my soul,</span><br /><span id=\"p19003002_06-1\" class=\"indent line\">&nbsp;&nbsp;&nbsp;&nbsp;\u201cThere is no salvation for him in God.\u201d <span class=\"selah\">Selah</span></span><br /></p><span class=\"end-line-group\"></span>\n"
+    ]
+}

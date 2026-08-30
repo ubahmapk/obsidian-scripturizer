@@ -1,0 +1,36 @@
+{
+    "query": "2 Corinthians 7:16\u20138:2",
+    "canonical": "2 Corinthians 7:16\u20138:2",
+    "parsed": [
+        [
+            47007016,
+            47008002
+        ]
+    ],
+    "passage_meta": [
+        {
+            "canonical": "2 Corinthians 7:16\u20138:2",
+            "chapter_start": [
+                47007001,
+                47007016
+            ],
+            "chapter_end": [
+                47008001,
+                47008024
+            ],
+            "prev_verse": 47007015,
+            "next_verse": 47008003,
+            "prev_chapter": [
+                47006001,
+                47006018
+            ],
+            "next_chapter": [
+                47009001,
+                47009015
+            ]
+        }
+    ],
+    "passages": [
+        "<p id=\"p47007016_01-1\" class=\"virtual\"><b class=\"verse-num\" id=\"v47007016-1\">16&nbsp;</b>I rejoice, because I have complete confidence in you.</p>\n<p id=\"p47008001_05-1\" class=\"starts-chapter\"><b class=\"chapter-num\" id=\"v47008001-1\">8:1&nbsp;</b>We want you to know, brothers, about the grace of God that has been given among the churches of Macedonia, <b class=\"verse-num\" id=\"v47008002-1\">2&nbsp;</b>for in a severe test of affliction, their abundance of joy and their extreme poverty have overflowed in a wealth of generosity on their part.</p>\n"
+    ]
+}
