@@ -1,42 +1,12 @@
-import type { Editor, EditorPosition } from "obsidian";
 import { runScripturize, type CalloutBuilder } from "./editorOps";
 import type { ScripturizerSettings } from "./settings";
 import type { ParsedReference } from "./parser/referenceParser";
+import { makeFakeEditor } from "./testSupport/editorFake";
 
 // Constructed directly (not imported from ./settings) so this test doesn't transitively pull
-// in the "obsidian" runtime module, which isn't available under jest.
+// in the "obsidian" runtime module, which isn't available under jest. The fake editor lives
+// in ./testSupport/editorFake and stays type-only on "obsidian" for the same reason.
 const DEFAULT_SETTINGS: ScripturizerSettings = { apiKey: "", defaultTranslation: "CSB", bibleIdCache: {} };
-
-// A minimal fake Editor that mimics the subset of the CodeMirror-backed Obsidian API
-// runScripturize actually uses (offsetToPos + replaceRange), backed by a plain mutable string.
-// Faithful enough to validate the descending-offset apply order for real, not just in isolation.
-function makeFakeEditor(initialText: string) {
-	let value = initialText;
-
-	function posToOffset(pos: EditorPosition): number {
-		const lines = value.split("\n");
-		let offset = 0;
-		for (let i = 0; i < pos.line; i++) offset += (lines[i]?.length ?? 0) + 1;
-		return offset + pos.ch;
-	}
-
-	function offsetToPos(offset: number): EditorPosition {
-		const before = value.slice(0, offset).split("\n");
-		return { line: before.length - 1, ch: before[before.length - 1]?.length ?? 0 };
-	}
-
-	function replaceRange(replacement: string, from: EditorPosition, to: EditorPosition): void {
-		const start = posToOffset(from);
-		const end = posToOffset(to);
-		value = value.slice(0, start) + replacement + value.slice(end);
-	}
-
-	return {
-		getValue: () => value,
-		offsetToPos,
-		replaceRange,
-	} as unknown as Editor;
-}
 
 /** blockText receives the matched raw text; seenMatches records what buildCallouts was actually called with. */
 function makeCalloutBuilder(blockText: (raw: string) => string, seenMatches: ParsedReference[][] = []): CalloutBuilder {
