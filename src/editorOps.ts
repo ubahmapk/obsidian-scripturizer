@@ -110,8 +110,17 @@ export async function planScripturize(
 	baseOffset: number,
 	settings: ScripturizerSettings,
 	calloutBuilder?: CalloutBuilder,
+	scanWindow?: [number, number],
 ): Promise<ScripturizerPlan> {
-	const matches = filterUnprotected(findReferences(text, settings.defaultTranslation), computeProtectedRanges(text));
+	let matches = filterUnprotected(findReferences(text, settings.defaultTranslation), computeProtectedRanges(text));
+
+	// When a scan window is given (the selection's own characters, fragment-relative), keep only
+	// matches FULLY contained in it — partial edge overlap drops the match. Everything else
+	// (protection, callout rules, whole-line callout edits) still runs on the whole fragment.
+	if (scanWindow !== undefined) {
+		const [wStart, wEnd] = scanWindow;
+		matches = matches.filter((m) => m.start >= wStart && m.end <= wEnd);
+	}
 
 	if (matches.length === 0) {
 		return { edits: [], linked: 0, calloutsInserted: 0, calloutsFailed: 0 };
