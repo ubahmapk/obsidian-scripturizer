@@ -28,6 +28,27 @@ describe("computeProtectedRanges + filterUnprotected", () => {
 		expect(text.slice(kept[0]!.start, kept[0]!.end)).toBe("Rom 8:28");
 	});
 
+	test("skips references inside a foldable `+` callout — both current and legacy header forms stay protected", () => {
+		// Scripturizer emits `> [!bible-ref]+ ` (foldable) headers; older notes carry the bare
+		// `> [!bible-ref] ` form. Re-running must never re-process a reference inside either.
+		const text = [
+			"> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
+			"> **15.25** text mentioning Rom 8:28 inside the callout body",
+			"",
+			"> [!bible-ref] [John 3:16 (CSB)](https://ref.ly/John3.16;CSB)",
+			"> **3.16** more text with Rom 8:29 also inside",
+			"",
+			"Rom 8:28 is a plain-text reference outside the callouts.",
+		].join("\n");
+
+		const matches = findReferences(text);
+		const protectedRanges = computeProtectedRanges(text);
+		const kept = filterUnprotected(matches, protectedRanges);
+
+		expect(kept).toHaveLength(1);
+		expect(text.slice(kept[0]!.start, kept[0]!.end)).toBe("Rom 8:28");
+	});
+
 	test("does not protect a plain-text reference on the same line as, but outside, an existing link", () => {
 		const text = "[Luke 15:25–32](https://ref.ly/Luke15.25–32;CSB) and also John 3:16";
 		const matches = findReferences(text);
