@@ -1,6 +1,6 @@
 {
 	"name": "scripturizer",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Detects Bible references in your notes and inserts linked, formatted passage text via API.Bible and ref.ly.",
 	"main": "main.js",
 	"type": "module",
