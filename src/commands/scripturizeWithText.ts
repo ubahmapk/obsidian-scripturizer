@@ -1,5 +1,6 @@
 import { Notice, type Editor } from "obsidian";
-import { runScripturize, type CalloutBuilder } from "../editorOps";
+import { planScripturize, runScripturize, type CalloutBuilder, type Edit } from "../editorOps";
+import { expandSelectionFragment, mergeSelectionRanges, type SelectionRange } from "../selectionGeometry";
 import { resolveBibleId } from "../bible-api/bibleIdCache";
 import { fetchPassage, ApiBibleError } from "../bible-api/apiBibleClient";
 import { parsePassageJson, formatCalloutBody, formatCalloutHeader } from "../bible-api/verseFormatter";
@@ -11,7 +12,9 @@ import type { ScripturizerSettings } from "../settings";
 
 // Small concurrency cap out of respect for API.Bible's rate limits — fetches are flattened to
 // one job per (match, verse segment) pair before this cap is applied, so a compound reference
-// with several segments still can't blow past the intended in-flight request limit.
+// with several segments still can't blow past the intended in-flight request limit. In
+// selection mode, ranges are planned SEQUENTIALLY (each plan awaited before the next starts),
+// so the cap holds per range regardless of how many selection ranges one command run scans.
 const MAX_CONCURRENT_FETCHES = 3;
 
 function buildPassageId(code: string, chapter: number, endChapter: number | undefined, segment?: VerseSegment): string {
@@ -79,8 +82,16 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T)
 	return results;
 }
 
-function makeCalloutBuilder(saveSettings: () => Promise<void>): CalloutBuilder {
-	return {
+/**
+ * Builds the CalloutBuilder passed to planScripturize, plus `getFailures` — a closure counter
+ * the command reads AFTER the run to fire ONE aggregated fetch-failure Notice for the whole
+ * run (the CalloutBuilder interface itself can't report failures; console.error stays
+ * per-job here). The buildFetchJobs error Notice stays inside the builder — it's a rare
+ * defensive path, not a fetch failure.
+ */
+function makeCalloutBuilder(saveSettings: () => Promise<void>): { builder: CalloutBuilder; getFailures: () => number } {
+	let failures = 0;
+	const builder: CalloutBuilder = {
 		async buildCallouts(matches, settings) {
 			const jobs = buildFetchJobs(matches);
 			if (!Array.isArray(jobs)) {
@@ -88,7 +99,6 @@ function makeCalloutBuilder(saveSettings: () => Promise<void>): CalloutBuilder {
 				return new Map();
 			}
 
-			let failures = 0;
 			const blocksByJob = await mapWithConcurrency(jobs, MAX_CONCURRENT_FETCHES, async (job) => {
 				try {
 					const bibleId = await resolveBibleId(job.translationCode, settings, saveSettings);
@@ -113,13 +123,10 @@ function makeCalloutBuilder(saveSettings: () => Promise<void>): CalloutBuilder {
 				out.set(job.matchStart, existing);
 			});
 
-			if (failures > 0) {
-				new Notice(`Scripturizer: ${failures} reference(s) linked but text could not be fetched (see console)`);
-			}
-
 			return out;
 		},
 	};
+	return { builder, getFailures: () => failures };
 }
 
 export async function scripturizeWithTextCommand(
@@ -127,10 +134,57 @@ export async function scripturizeWithTextCommand(
 	settings: ScripturizerSettings,
 	saveSettings: () => Promise<void>,
 ): Promise<void> {
-	const text = editor.getValue();
-	const result = await runScripturize(editor, text, 0, settings, makeCalloutBuilder(saveSettings));
+	const doc = editor.getValue();
+	const { builder, getFailures } = makeCalloutBuilder(saveSettings);
 
-	if (result.linked === 0) {
-		new Notice("Scripturizer: no new references found in this note");
+	// Whole-note fallback: no non-empty selection (a plain caret yields zero-width ranges
+	// that mergeSelectionRanges drops).
+	const selections = editor
+		.listSelections()
+		.map((sel): SelectionRange => {
+			const anchor = editor.posToOffset(sel.anchor);
+			const head = editor.posToOffset(sel.head);
+			return { start: Math.min(anchor, head), end: Math.max(anchor, head) };
+		});
+	const merged = mergeSelectionRanges(doc, selections);
+
+	if (merged.length === 0) {
+		const result = await runScripturize(editor, doc, 0, settings, builder);
+		if (result.linked === 0) {
+			new Notice("Scripturizer: no new references found in this note");
+		}
+	} else {
+		// Selection mode: plan every merged range SEQUENTIALLY (see MAX_CONCURRENT_FETCHES
+		// above), then commit ALL edits from the run as ONE transaction — a single undo step.
+		const combinedEdits: Edit[] = [];
+		let linked = 0;
+		for (const range of merged) {
+			const frag = expandSelectionFragment(doc, range.start, range.end);
+			const plan = await planScripturize(
+				doc.slice(frag.fragmentStart, frag.fragmentEnd),
+				frag.fragmentStart,
+				settings,
+				builder,
+				[frag.windowStart, frag.windowEnd],
+			);
+			combinedEdits.push(...plan.edits);
+			linked += plan.linked;
+		}
+
+		if (combinedEdits.length > 0) {
+			editor.transaction({
+				changes: combinedEdits.map((e) => ({
+					from: editor.offsetToPos(e.start),
+					to: editor.offsetToPos(e.end),
+					text: e.text,
+				})),
+			});
+		}
+		if (linked === 0) {
+			new Notice("Scripturizer: no new references found in this selection");
+		}
+	}
+	if (getFailures() > 0) {
+		new Notice(`Scripturizer: ${getFailures()} reference(s) linked but text could not be fetched (see console)`);
 	}
 }
