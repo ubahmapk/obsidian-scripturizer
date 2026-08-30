@@ -6,8 +6,8 @@ export type ProtectedRange = [start: number, end: number];
 // form we need to protect against re-processing.
 const MARKDOWN_LINK_RE = /\[[^\]\n]*\]\([^)\n]*\)/g;
 
-const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bible-ref\]/;
-const CALLOUT_CONTINUATION_RE = /^[ \t]*>/;
+export const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bible-ref\]/;
+export const CALLOUT_CONTINUATION_RE = /^[ \t]*>/;
 
 /**
  * Finds character ranges in `text` that must never be re-processed: existing inline Markdown
