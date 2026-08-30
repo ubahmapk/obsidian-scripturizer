@@ -1,7 +1,7 @@
 {
 	"id": "scripturizer",
 	"name": "Scripturizer",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"minAppVersion": "1.0.0",
 	"description": "Detects Bible references in your notes and inserts linked, formatted passage text via API.Bible and ref.ly.",
 	"author": "ubahmapk",
