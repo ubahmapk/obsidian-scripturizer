@@ -2,7 +2,7 @@ import { Notice, type Editor } from "obsidian";
 import { runScripturize, type CalloutBuilder } from "../editorOps";
 import { resolveBibleId } from "../bible-api/bibleIdCache";
 import { fetchPassage, ApiBibleError } from "../bible-api/apiBibleClient";
-import { parsePassageJson, formatCalloutBody } from "../bible-api/verseFormatter";
+import { parsePassageJson, formatCalloutBody, formatCalloutHeader } from "../bible-api/verseFormatter";
 import { apiBibleBookCode } from "../data/osis-codes";
 import { buildReflyLinks, type ReflyLink } from "../refly/uriBuilder";
 import { isTranslationCode, type TranslationCode } from "../data/translations";
@@ -95,7 +95,7 @@ function makeCalloutBuilder(saveSettings: () => Promise<void>): CalloutBuilder {
 					const passageData = await fetchPassage(bibleId, job.passageId, settings.apiKey);
 					const verses = parsePassageJson(passageData);
 					const body = formatCalloutBody(verses, job.chapter);
-					return `> [!bible-ref] [${job.link.linkText}](${job.link.url})\n${body}`;
+					return `${formatCalloutHeader(job.link.linkText, job.link.url)}\n${body}`;
 				} catch (err) {
 					failures++;
 					const message = err instanceof ApiBibleError ? err.message : String(err);

@@ -76,7 +76,7 @@ The API is documented at https://api.bible/api-reference
 
 The end result of a verse will follow this pattern:
 
-> [!bible-ref] [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)
+> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)
 > **15.25** “Now his older son was in the field; as he came near the house, he heard music and dancing. **26** So he summoned one of the servants, questioning what these things meant. **27** ‘Your brother is here,’ he told him, ‘and your father has slaughtered the fattened calf because he has him back safe and sound.’
 >
 > **28** “Then he became angry and didn’t want to go in. So his father came out and pleaded with him. **29** But he replied to his father, ‘Look, I have been slaving many years for you, and I have never disobeyed your orders, yet you never gave me a goat so that I could celebrate with my friends. **30** But when this son of yours came, who has devoured your assets with prostitutes, you slaughtered the fattened calf for him.’
@@ -134,7 +134,7 @@ ref.ly URL (chapter repeated only on the end side), and the callout body include
 `**{chapter}.{verse}**` label at the first verse of each chapter it covers, not just the very
 first verse overall:
 
-> [!bible-ref] [2 Corinthians 7:16–8:2 (CSB)](https://ref.ly/2Cor7.16-8.2;CSB)
+> [!bible-ref]+ [2 Corinthians 7:16–8:2 (CSB)](https://ref.ly/2Cor7.16-8.2;CSB)
 > **7.16** I rejoice that I have complete confidence in you.
 >
 > **8.1** We want you to know, brothers and sisters, about the grace of God that was given to the churches of Macedonia: **2** During a severe trial brought about by affliction, their abundant joy and their extreme poverty overflowed in a wealth of generosity on their part.

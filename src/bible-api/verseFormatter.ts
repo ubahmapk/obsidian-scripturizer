@@ -90,6 +90,14 @@ export function parsePassageJson(passageData: unknown): FormattedVerse[] {
 }
 
 /**
+ * The callout's header line — `+` makes it foldable in Obsidian (default unfolded), per
+ * guidelines.md's worked example.
+ */
+export function formatCalloutHeader(linkText: string, url: string): string {
+	return `> [!bible-ref]+ [${linkText}](${url})`;
+}
+
+/**
  * Assembles the callout body: the first verse overall is rendered `**{chapter}.{verse}**`, every
  * other verse `**{verse}**`, paragraph breaks preserved as a bare `>` line, every line prefixed
  * `> ` — matching guidelines.md's worked example.

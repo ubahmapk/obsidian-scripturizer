@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parsePassageJson, formatCalloutBody } from "./verseFormatter";
+import { parsePassageJson, formatCalloutBody, formatCalloutHeader } from "./verseFormatter";
 
 const fixturePath = join(process.cwd(), "src/bible-api/__fixtures__/luke15.json");
 const fixture = JSON.parse(readFileSync(fixturePath, "utf8")) as { data: unknown };
@@ -30,6 +30,12 @@ describe("verseFormatter against a real API.Bible content-type=json response", (
 		expect(lines[2]).toMatch(/^> \*\*28\*\*/);
 		expect(lines[3]).toBe(">");
 		expect(lines[4]).toMatch(/^> \*\*31\*\*/);
+	});
+
+	test("callout header carries the foldable `+` marker, per guidelines.md's worked example", () => {
+		expect(formatCalloutHeader("Luke 15:25–32 (CSB)", "https://ref.ly/Luke15.25–32;CSB")).toBe(
+			"> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
+		);
 	});
 
 	describe("chapter-crossing passages", () => {
