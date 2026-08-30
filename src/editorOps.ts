@@ -10,7 +10,7 @@ export interface CalloutBuilder {
 	 * Fetches and formats verse text for `matches` (already pre-filtered to "callout-eligible"
 	 * matches only — see `isCalloutEligible` — so this is never asked to fetch text for a
 	 * reference that won't end up with a callout), returning one COMPLETE callout block per
-	 * verse segment (`> [!bible-ref] [...](...)\n> body`, header included) — keyed by the
+	 * verse segment (`> [!bible-ref]+ [...](...)\n> body`, header included) — keyed by the
 	 * match's `start` offset, since that's the only stable identity available at this layer. A
 	 * missing/empty entry means that reference's fetch failed and should be skipped with a
 	 * summary Notice by the caller — Phase 5 fills this in via bible-api/.
