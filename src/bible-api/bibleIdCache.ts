@@ -24,8 +24,8 @@ export async function resolveBibleId(
 	if (cached) return cached.bibleId;
 
 	const translation = TRANSLATIONS.find((t) => t.code === code);
-	if (!translation) {
-		throw new ApiBibleError(`Scripturizer: unknown translation code "${code}"`, "not-found");
+	if (!translation || translation.engine !== "api-bible") {
+		throw new ApiBibleError(`Scripturizer: unknown API.Bible translation code "${code}"`, "not-found");
 	}
 
 	const catalog = await fetchEnglishBibles(settings.apiKey);

@@ -59,16 +59,35 @@ describe("runScripturize", () => {
 		expect(seenMatches[0]).toHaveLength(0);
 	});
 
-	test("an unsupported translation (e.g. ESV) is linked only, even alone on its own line", async () => {
-		const text = "2 Corinthians 7:10 (ESV)";
+	test("an unsupported translation (e.g. KJV) is linked only, even alone on its own line", async () => {
+		const text = "2 Corinthians 7:10 (KJV)";
 		const editor = makeFakeEditor(text);
 		const seenMatches: ParsedReference[][] = [];
 		const calloutBuilder = makeCalloutBuilder(() => "should not be used", seenMatches);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
-		expect(editor.getValue()).toBe("[2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)");
+		expect(editor.getValue()).toBe("[2 Corinthians 7:10 (KJV)](https://ref.ly/2Cor7.10;KJV)");
 		expect(seenMatches[0]).toHaveLength(0);
+	});
+
+	test("an ESV reference is callout-eligible when alone on its own line", async () => {
+		const text = "2 Corinthians 7:10 (ESV)";
+		const editor = makeFakeEditor(text);
+		const seenMatches: ParsedReference[][] = [];
+		const calloutBuilder = makeCalloutBuilder(
+			(raw) => `> [!bible-ref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n> **7.10** text for ${raw}`,
+			seenMatches,
+		);
+
+		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
+
+		expect(seenMatches[0]).toHaveLength(1);
+		expect(seenMatches[0]?.[0]?.translationCode).toBe("ESV");
+		expect(editor.getValue()).toBe(
+			"> [!bible-ref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n" +
+				"> **7.10** text for 2 Corinthians 7:10 (ESV)",
+		);
 	});
 
 	test("a bullet-point reference is treated like it's alone on its own line", async () => {
