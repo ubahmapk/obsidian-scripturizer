@@ -83,7 +83,7 @@ describe("parseEsvHtml against live-captured Crossway fixtures", () => {
 		expect(v[15]?.verse).toBe(16);
 	});
 
-	test("song1-1-4: speaker labels She and Others; verse 4 keeps its continuation after the Others label", () => {
+	test("song1-1-4: speaker labels She and Others split verse 4's text at their true positions", () => {
 		const blocks = parseEsvHtml(passageOf("song1-1-4.json"));
 		const l = labels(blocks);
 		expect(l.map((x) => x.text)).toEqual(["She", "Others"]);
@@ -93,16 +93,16 @@ describe("parseEsvHtml against live-captured Crossway fixtures", () => {
 			[1, 2],
 			[1, 3],
 			[1, 4],
+			[1, 4],
 		]);
-		// The "Others" continuation group belongs to verse 4 — the current verse at that point.
-		expect(v[3]?.lines).toEqual([
-			"Draw me after you; let us run.",
-			"The king has brought me into his chambers.",
+		// The "Others" continuation group is verse 4's SECOND block — the label renders
+		// between them (Song 1:4: "Others" introduces the We-will-exult group).
+		expect(v[3]?.lines).toEqual(["Draw me after you; let us run.", "The king has brought me into his chambers."]);
+		expect(v[4]?.lines).toEqual([
 			"We will exult and rejoice in you;",
 			"we will extol your love more than wine;",
 			"rightly do they love you.",
 		]);
-		// Verse 2 keeps its own continuation line.
 		expect(v[1]?.lines).toEqual([
 			"Let him kiss me with the kisses of his mouth!",
 			"For your love is better than wine;",

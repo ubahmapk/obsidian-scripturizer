@@ -95,30 +95,22 @@ function flushText(state: ParserState): void {
 		return;
 	}
 
-	// Labels interleave with verse text without breaking verse continuity: text after a
-	// label still belongs to the verse that was current before the label (verified: Song 1,
-	// "Others" — the continuation group merges back into verse 4).
-	let target: EsvVerseBlock | undefined;
-	for (let i = state.blocks.length - 1; i >= 0; i--) {
-		const b: EsvBlock | undefined = state.blocks[i];
-		if (b === undefined) break;
-		if (b.kind === "verse") {
-			if (b.verse === currentVerse && b.chapter === currentChapter) target = b;
-			break;
-		}
+	// Merge into the previous verse block when it's the same verse — poetry continuation
+	// lines accumulate there. A label block between them breaks the merge (the label
+	// renders at its true position between the two text groups — Song 1:4 "Others").
+	const last = state.blocks[state.blocks.length - 1];
+	if (last?.kind === "verse" && last.verse === currentVerse && last.chapter === currentChapter) {
+		last.lines.push(text);
+		return;
 	}
-	if (target) {
-		target.lines.push(text);
-	} else {
-		state.blocks.push({
-			kind: "verse",
-			index: state.blockCount++,
-			chapter: currentChapter,
-			verse: currentVerse,
-			lines: [text],
-			paragraphIndex: state.paragraphIndex,
-		});
-	}
+	state.blocks.push({
+		kind: "verse",
+		index: state.blockCount++,
+		chapter: currentChapter,
+		verse: currentVerse,
+		lines: [text],
+		paragraphIndex: state.paragraphIndex,
+	});
 }
 
 /**
