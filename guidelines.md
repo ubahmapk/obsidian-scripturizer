@@ -55,22 +55,27 @@ both.
 
 1. If no translation reference is found, Scripturizer uses the default translation (CSB, unless specified as otherwise by user in the plugin preferences)
 2. Scripturizer recognizes any 2-6 consecutive uppercase letters in the translation position (bare or parenthesized) as a translation acronym — not just a curated list — so an unfamiliar code (e.g. `ESV`, `NIV`, `KJV`) is still linked correctly with that translation.
-3. Only a subset of recognized translations can actually have their verse text fetched and inserted into a callout, since that requires a known API.Bible mapping:
+3. Only a subset of recognized translations can actually have their verse text fetched and inserted into a callout:
 
-- CSB (Christian Standard Bible)
-- NASB (New American Standard Bible 2020)
-- AMP (Amplified Version)
+- CSB (Christian Standard Bible) — via API.Bible
+- NASB (New American Standard Bible 2020) — via API.Bible
+- AMP (Amplified Version) — via API.Bible
+- ESV (English Standard Version) — via the Crossway API, which requires its own free API key
 
-A reference whose translation is recognized but **not** one of these three is still linked (and,
-if otherwise eligible, would have gotten a callout) — but no API.Bible fetch is attempted, and no
-callout is inserted; the reference is left as a link only. Fetch-translation support may be
-expanded in future versions.
+A reference whose translation is recognized but **not** one of these four is still linked (and,
+if otherwise eligible, would have gotten a callout) — but no fetch is attempted, and no
+callout is inserted; the reference is left as a link only. Fetch-translation support may
+be expanded in future versions.
 
 ## Bible Content
 
 Scripture text should be retrieved from API.Bible, which requires an API key. I think that key should be stored in the plugin preferences -- and definitely not hard coded -- but I'm open to suggestions.
 
 The API is documented at https://api.bible/api-reference
+
+ESV text is fetched from Crossway's own API (https://api.esv.org) instead, which requires its own free API key (https://api.esv.org/account/create-application/).
+
+For ESV callouts, any pre-verse label text Crossway provides — psalm superscriptions ("A Psalm of David..."), acrostic letters ("Aleph", "Beth"), and speaker labels ("She", "Others") — is rendered on its own italic line, immediately below the passage reference/link and immediately above the verse text it introduces, with no blank lines around it. Poetry line breaks inside a verse are preserved as separate lines, faithful to the source formatting.
 
 ## Logos References
 
