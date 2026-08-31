@@ -115,9 +115,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
  * verifies the response actually covers the requested verses before the plugin inserts
  * confidently-wrong text into a note. The START verse id must match exactly; the END is
  * checked as a containment range because a chapter-only fetch (e.g. "Matthew 5-6") returns
- * the chapter's real final verse id, not a sentinel.
+ * the chapter's real final verse id, not a sentinel. Returns the validated passage HTML.
  */
-export function validateEsvResponse(body: unknown, ref: ParsedReference): void {
+export function validateEsvResponse(body: unknown, ref: ParsedReference): string {
 	if (!isRecord(body) || !Array.isArray(body.passages) || !Array.isArray(body.parsed)) {
 		throw new CrosswayError("Scripturizer: unexpected Crossway response shape", "malformed-response");
 	}
@@ -144,14 +144,17 @@ export function validateEsvResponse(body: unknown, ref: ParsedReference): void {
 			"verse-mismatch",
 		);
 	}
+	return body.passages[0];
 }
 
 /**
  * Fetches the ESV passage HTML for `query`. Uses `requestUrl` (not fetch) for CORS-safety
  * and mobile compatibility, per this project's Obsidian plugin conventions. Crossway
  * returns 403 (not 401) with a `{"detail": ...}` body for auth failures — verified live.
+ * `requestUrl` auto-parses JSON content-type responses, so `response.json` is already the
+ * response object here, not a string to re-parse.
  */
-export async function fetchEsvPassage(query: string, apiKey: string): Promise<string> {
+export async function fetchEsvPassage(query: string, apiKey: string): Promise<unknown> {
 	if (!apiKey) {
 		throw new CrosswayError("Scripturizer: no Crossway (ESV) key configured in settings", "auth");
 	}
@@ -178,7 +181,7 @@ export async function fetchEsvPassage(query: string, apiKey: string): Promise<st
 	}
 
 	const json: unknown = response.json;
-	if (typeof json !== "string") {
+	if (typeof json !== "object" || json === null) {
 		throw new CrosswayError("Scripturizer: Crossway returned a malformed response", "malformed-response");
 	}
 	return json;
