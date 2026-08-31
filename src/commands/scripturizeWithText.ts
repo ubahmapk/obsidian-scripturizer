@@ -2,8 +2,12 @@ import { Notice, type Editor } from "obsidian";
 import { planScripturize, runScripturize, type CalloutBuilder, type Edit } from "../editorOps";
 import { expandSelectionFragment, mergeSelectionRanges, type SelectionRange } from "../selectionGeometry";
 import { resolveBibleId } from "../bible-api/bibleIdCache";
-import { fetchPassage, ApiBibleError } from "../bible-api/apiBibleClient";
+import { fetchPassage } from "../bible-api/apiBibleClient";
 import { parsePassageJson, formatCalloutBody, formatCalloutHeader } from "../bible-api/verseFormatter";
+import { buildCrosswayQuery, fetchEsvPassage, validateEsvResponse, CrosswayError } from "../crossway/client";
+import { parseEsvHtml } from "../crossway/passageParser";
+import { formatEsvBody } from "../crossway/esvFormatter";
+import { getTranslation } from "../data/translations";
 import { apiBibleBookCode } from "../data/osis-codes";
 import { buildReflyLinks, type ReflyLink } from "../refly/uriBuilder";
 import { isTranslationCode, type TranslationCode } from "../data/translations";
@@ -28,10 +32,15 @@ interface FetchJob {
 	matchStart: number;
 	orderIndex: number;
 	raw: string;
+	bookId: string;
 	passageId: string;
 	translationCode: TranslationCode;
 	link: ReflyLink;
 	chapter: number;
+	/** The verse segment this job fetches — undefined for a chapter-only reference. */
+	segment?: VerseSegment;
+	/** Set only for a bare chapter-range reference with no verses, e.g. "Matt 5-6". */
+	endChapter?: number;
 }
 
 function buildFetchJobs(matches: ParsedReference[]): FetchJob[] | { error: string } {
@@ -57,10 +66,13 @@ function buildFetchJobs(matches: ParsedReference[]): FetchJob[] | { error: strin
 				matchStart: match.start,
 				orderIndex: i,
 				raw: match.raw,
+				bookId: match.bookId,
 				passageId: buildPassageId(code, match.chapter, match.endChapter, segment),
 				translationCode,
 				link,
 				chapter: match.chapter,
+				segment,
+				endChapter: match.endChapter,
 			});
 		});
 	}
@@ -83,6 +95,49 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T)
 }
 
 /**
+ * Fetches and formats the complete callout block (header + body) for ONE fetch job,
+ * routing by its translation's engine: "crossway" goes through the ESV pipeline
+ * (fetch -> guard -> parse -> format) with a per-segment query, everything else through
+ * the unchanged API.Bible pipeline. Returns undefined on any fetch/parse failure — the
+ * caller counts the failure, logs it, and falls back to a plain inline link.
+ */
+export async function buildCalloutBlocksForMatch(
+	job: FetchJob,
+	settings: ScripturizerSettings,
+	saveSettings: () => Promise<void>,
+): Promise<string | undefined> {
+	const translation = getTranslation(job.translationCode);
+
+	if (translation?.engine === "crossway") {
+		const segmentRef: ParsedReference = {
+			raw: job.raw,
+			start: 0,
+			end: 0,
+			bookId: job.bookId,
+			chapter: job.chapter,
+			endChapter: job.endChapter,
+			verseSegments: job.segment ? [job.segment] : [],
+			translationCode: job.translationCode,
+			translationWasExplicit: true,
+		};
+		const query = buildCrosswayQuery(segmentRef);
+		const body = await fetchEsvPassage(query, settings.esvApiKey);
+		const html = validateEsvResponse(body, segmentRef);
+		const blocks = parseEsvHtml(html);
+		const formatted = formatEsvBody(blocks, segmentRef);
+		if (formatted.length === 0) return undefined;
+		return `${formatCalloutHeader(job.link.linkText, job.link.url)}\n${formatted}`;
+	}
+
+	const bibleId = await resolveBibleId(job.translationCode, settings, saveSettings);
+	const passageData = await fetchPassage(bibleId, job.passageId, settings.apiKey);
+	const verses = parsePassageJson(passageData);
+	const body = formatCalloutBody(verses, job.chapter);
+	if (body.length === 0) return undefined;
+	return `${formatCalloutHeader(job.link.linkText, job.link.url)}\n${body}`;
+}
+
+/**
  * Builds the CalloutBuilder passed to planScripturize, plus `getFailures` — a closure counter
  * the command reads AFTER the run to fire ONE aggregated fetch-failure Notice for the whole
  * run (the CalloutBuilder interface itself can't report failures; console.error stays
@@ -99,20 +154,22 @@ function makeCalloutBuilder(saveSettings: () => Promise<void>): { builder: Callo
 				return new Map();
 			}
 
-			const blocksByJob = await mapWithConcurrency(jobs, MAX_CONCURRENT_FETCHES, async (job) => {
-				try {
-					const bibleId = await resolveBibleId(job.translationCode, settings, saveSettings);
-					const passageData = await fetchPassage(bibleId, job.passageId, settings.apiKey);
-					const verses = parsePassageJson(passageData);
-					const body = formatCalloutBody(verses, job.chapter);
-					return `${formatCalloutHeader(job.link.linkText, job.link.url)}\n${body}`;
-				} catch (err) {
+		const blocksByJob = await mapWithConcurrency(jobs, MAX_CONCURRENT_FETCHES, async (job) => {
+			try {
+				const block = await buildCalloutBlocksForMatch(job, settings, saveSettings);
+				if (block === undefined) {
 					failures++;
-					const message = err instanceof ApiBibleError ? err.message : String(err);
-					console.error(`Scripturizer: failed to fetch ${job.raw} (${job.link.linkText}): ${message}`);
+					console.error(`Scripturizer: failed to fetch ${job.raw} (${job.link.linkText})`);
 					return undefined;
 				}
-			});
+				return block;
+			} catch (err) {
+				failures++;
+				const message = err instanceof Error ? err.message : String(err);
+				console.error(`Scripturizer: failed to fetch ${job.raw} (${job.link.linkText}): ${message}`);
+				return undefined;
+			}
+		});
 
 			const out = new Map<number, string[]>();
 			jobs.forEach((job, i) => {

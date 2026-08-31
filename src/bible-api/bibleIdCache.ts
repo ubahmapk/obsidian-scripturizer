@@ -42,7 +42,7 @@ export async function resolveBibleId(
 	return found.id;
 }
 
-/** Clears and re-resolves the bibleId for every known translation. Used by the settings tab. */
+/** Clears and re-resolves the bibleId for every API.Bible-engine translation. Used by the settings tab. */
 export async function refreshAllBibleIds(
 	settings: ScripturizerSettings,
 	saveSettings: () => Promise<void>,
@@ -50,6 +50,7 @@ export async function refreshAllBibleIds(
 	settings.bibleIdCache = {};
 	const results: { code: TranslationCode; ok: boolean; error?: string }[] = [];
 	for (const translation of TRANSLATIONS) {
+		if (translation.engine !== "api-bible") continue;
 		try {
 			await resolveBibleId(translation.code, settings, saveSettings);
 			results.push({ code: translation.code, ok: true });

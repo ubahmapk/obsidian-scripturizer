@@ -10,12 +10,14 @@ export interface BibleIdCacheEntry {
 
 export interface ScripturizerSettings {
 	apiKey: string;
+	esvApiKey: string;
 	defaultTranslation: TranslationCode;
 	bibleIdCache: Record<string, BibleIdCacheEntry>;
 }
 
 export const DEFAULT_SETTINGS: ScripturizerSettings = {
 	apiKey: "",
+	esvApiKey: "",
 	defaultTranslation: "CSB",
 	bibleIdCache: {},
 };
@@ -34,9 +36,9 @@ export class ScripturizerSettingTab extends PluginSettingTab {
 
 		containerEl.createEl("p", {
 			text:
-				"Your API.Bible key is stored in plain text in this vault's data.json " +
+				"Your API keys are stored in plain text in this vault's data.json " +
 				"(Obsidian does not encrypt plugin settings). Avoid using this vault's sync/" +
-				"backup for the key if that's a concern for you.",
+				"backup for the keys if that's a concern for you.",
 			cls: "setting-item-description",
 		});
 
@@ -50,6 +52,20 @@ export class ScripturizerSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.apiKey)
 					.onChange(async (value) => {
 						this.plugin.settings.apiKey = value.trim();
+						await this.plugin.saveSettings();
+					});
+			});
+
+		new Setting(containerEl)
+			.setName("Crossway (ESV) key")
+			.setDesc("Required to fetch ESV text. Get a free key at https://api.esv.org/account/create-application/.")
+			.addText((text) => {
+				text.inputEl.type = "password";
+				text
+					.setPlaceholder("Enter your Crossway (ESV) key")
+					.setValue(this.plugin.settings.esvApiKey)
+					.onChange(async (value) => {
+						this.plugin.settings.esvApiKey = value.trim();
 						await this.plugin.saveSettings();
 					});
 			});
@@ -70,8 +86,8 @@ export class ScripturizerSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("Refresh Bible ID cache")
 			.setDesc(
-				"Clears and re-resolves the API.Bible bibleId cached for each translation. " +
-					"Use this if a translation stops resolving correctly.",
+				"Clears and re-resolves the API.Bible bibleId cached for each API.Bible " +
+					"translation (CSB, NASB, AMP). Use this if a translation stops resolving correctly.",
 			)
 			.addButton((button) => {
 				button.setButtonText("Refresh").onClick(async () => {

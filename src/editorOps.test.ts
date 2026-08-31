@@ -6,7 +6,7 @@ import { makeFakeEditor } from "./testSupport/editorFake";
 // Constructed directly (not imported from ./settings) so this test doesn't transitively pull
 // in the "obsidian" runtime module, which isn't available under jest. The fake editor lives
 // in ./testSupport/editorFake and stays type-only on "obsidian" for the same reason.
-const DEFAULT_SETTINGS: ScripturizerSettings = { apiKey: "", defaultTranslation: "CSB", bibleIdCache: {} };
+const DEFAULT_SETTINGS: ScripturizerSettings = { apiKey: "", esvApiKey: "", defaultTranslation: "CSB", bibleIdCache: {} };
 
 /** blockText receives the matched raw text; seenMatches records what buildCallouts was actually called with. */
 function makeCalloutBuilder(blockText: (raw: string) => string, seenMatches: ParsedReference[][] = []): CalloutBuilder {

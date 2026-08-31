@@ -7,7 +7,7 @@ import type { ParsedReference } from "./parser/referenceParser";
 // Constructed directly (not imported from ./settings) so this test doesn't transitively pull
 // in the "obsidian" runtime module, which isn't available under jest. The fake editor lives
 // in ./testSupport/editorFake and stays type-only on "obsidian" for the same reason.
-const DEFAULT_SETTINGS: ScripturizerSettings = { apiKey: "", defaultTranslation: "CSB", bibleIdCache: {} };
+const DEFAULT_SETTINGS: ScripturizerSettings = { apiKey: "", esvApiKey: "", defaultTranslation: "CSB", bibleIdCache: {} };
 
 /** Standard builder: one complete callout block per eligible match, keyed by match.start. */
 function makeCalloutBuilder(seenMatches: ParsedReference[][] = []): CalloutBuilder {
