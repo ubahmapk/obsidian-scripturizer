@@ -24,7 +24,7 @@ export interface FakeEditorTransactionCall {
 	changes: FakeEditorChange[];
 }
 
-export function makeFakeEditor(initialText: string) {
+export function makeFakeEditor(initialText: string, cursor: EditorPosition = { line: 0, ch: 0 }) {
 	let value = initialText;
 	const transactionCalls: FakeEditorTransactionCall[] = [];
 
@@ -38,6 +38,18 @@ export function makeFakeEditor(initialText: string) {
 	function offsetToPos(offset: number): EditorPosition {
 		const before = value.slice(0, offset).split("\n");
 		return { line: before.length - 1, ch: before[before.length - 1]?.length ?? 0 };
+	}
+
+	function getLine(line: number): string {
+		return value.split("\n")[line] ?? "";
+	}
+
+	function lineCount(): number {
+		return value.split("\n").length;
+	}
+
+	function getCursor(): EditorPosition {
+		return { ...cursor };
 	}
 
 	function replaceRange(replacement: string, from: EditorPosition, to: EditorPosition): void {
@@ -63,6 +75,10 @@ export function makeFakeEditor(initialText: string) {
 	return {
 		getValue: () => value,
 		offsetToPos,
+		posToOffset,
+		getCursor,
+		getLine,
+		lineCount,
 		replaceRange,
 		transaction,
 		transactionCalls,
