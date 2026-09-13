@@ -174,4 +174,21 @@ describe("expandSelectionFragment", () => {
 		expect(r.fragmentStart).toBe(0);
 		expect(r.fragmentEnd).toBe(13);
 	});
+
+	it("(e) pulls a setext underline line just past the fragment into the fragment", () => {
+		const doc = "Psalm 90\nA prayer of Moses\n===\nBody";
+		// Select "Psalm 90" on line 1. Context adds the "A prayer of Moses" line below, so
+		// the fragment ends at the start of the "===" line; (e) must extend past the
+		// underline (with its newline) so the heading is visible to computeProtectedRanges.
+		const selStart = doc.indexOf("Psalm 90");
+		const selEnd = selStart + "Psalm 90".length;
+		const r = expandSelectionFragment(doc, selStart, selEnd);
+		expect(doc.slice(r.fragmentStart, r.fragmentEnd)).toBe("Psalm 90\nA prayer of Moses\n===\n");
+	});
+
+	it("(e) leaves the fragment alone when the next line is not a setext underline", () => {
+		const doc = "l1\nl2\nl3\nl4\nl5";
+		const r = expandSelectionFragment(doc, 6, 8);
+		expect(r.fragmentEnd).toBe(12);
+	});
 });

@@ -173,5 +173,45 @@ describe("planScripturize scanWindow (fragment-relative full containment)", () =
 	});
 });
 
+describe("heading protection in selection-scoped scans (issue #5)", () => {
+	test("a selection covering a reference in an ATX heading produces no edits", async () => {
+		const doc = "Intro\n\n## Psalm 90\n\nBody text.";
+		const selStart = doc.indexOf("Psalm 90");
+		const selEnd = selStart + "Psalm 90".length;
+		const frag = expandSelectionFragment(doc, selStart, selEnd);
+		const plan = await planScripturize(
+			doc.slice(frag.fragmentStart, frag.fragmentEnd),
+			frag.fragmentStart,
+			DEFAULT_SETTINGS,
+			makeCalloutBuilder(),
+			[frag.windowStart, frag.windowEnd],
+		);
+
+		expect(plan.linked).toBe(0);
+		expect(plan.edits).toHaveLength(0);
+	});
+
+	test("a selection on a multi-line setext heading still sees the underline (fragment completion)", async () => {
+		const doc = "Intro\n\nPsalm 90\nA prayer of Moses\n===\n\nBody text.";
+		const selStart = doc.indexOf("Psalm 90");
+		const selEnd = selStart + "Psalm 90".length;
+		const frag = expandSelectionFragment(doc, selStart, selEnd);
+		// The underline sits two context lines below the selection — the fragment must reach
+		// past it for computeProtectedRanges to see the heading at all.
+		expect(doc.slice(frag.fragmentStart, frag.fragmentEnd)).toContain("===");
+
+		const plan = await planScripturize(
+			doc.slice(frag.fragmentStart, frag.fragmentEnd),
+			frag.fragmentStart,
+			DEFAULT_SETTINGS,
+			makeCalloutBuilder(),
+			[frag.windowStart, frag.windowEnd],
+		);
+
+		expect(plan.linked).toBe(0);
+		expect(plan.edits).toHaveLength(0);
+	});
+});
+
 // Shared across tests; reset per-test where the builder's call args are asserted.
 const seenMatches: ParsedReference[][] = [];

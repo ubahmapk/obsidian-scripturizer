@@ -2,7 +2,7 @@
 // obsidian import, and no editorOps import (calling editorOps from here would risk an
 // import cycle once editorOps grows a scan-window parameter — the lineBoundsOf semantics
 // are reimplemented locally instead).
-import { CALLOUT_CONTINUATION_RE, CALLOUT_START_RE } from "./parser/idempotency";
+import { CALLOUT_CONTINUATION_RE, CALLOUT_START_RE, SETEXT_UNDERLINE_RE } from "./parser/idempotency";
 
 export interface SelectionFragment {
 	fragmentStart: number;
@@ -85,6 +85,20 @@ export function expandSelectionFragment(doc: string, selStart: number, selEnd: n
 		const lineText = doc.slice(fragmentStart, lineEnd === -1 ? doc.length : lineEnd);
 		if (!CALLOUT_CONTINUATION_RE.test(lineText) || CALLOUT_START_RE.test(lineText)) break;
 		fragmentStart = lineStartAbove(doc, fragmentStart);
+	}
+
+	// (e) Downward setext completion: if the line just past the fragment looks like a setext
+	// underline, include it — a multi-line setext heading's underline can sit more than one
+	// context line below the selection, and computeProtectedRanges can only see (and protect)
+	// the heading's paragraph if the underline is inside the fragment. Whether the underline
+	// truly closes a heading is decided there, from the fragment's own last line; pulling
+	// the line in when it doesn't is harmless (it just reads as ordinary context).
+	if (fragmentEnd < doc.length) {
+		const underlineNewline = doc.indexOf("\n", fragmentEnd);
+		const nextLine = doc.slice(fragmentEnd, underlineNewline === -1 ? doc.length : underlineNewline);
+		if (SETEXT_UNDERLINE_RE.test(nextLine)) {
+			fragmentEnd = underlineNewline === -1 ? doc.length : underlineNewline + 1;
+		}
 	}
 
 	return { fragmentStart, fragmentEnd, windowStart: selStart - fragmentStart, windowEnd: selEnd - fragmentStart };
