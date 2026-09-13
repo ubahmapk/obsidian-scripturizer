@@ -35,6 +35,14 @@ callout), placed where the original combined text was. For example, `Luke 15:11-
 produces two separate links/callouts, one for `11-13` and one for `17-20`, not one link covering
 both.
 
+A reference that appears in a **heading** is never linked and never given a callout — it is left
+exactly as typed. A heading is an ATX line (`#` through `######`, with a space after the hashes)
+or a setext heading (a paragraph line followed by an `===` or `---` underline line, which promotes
+the whole paragraph above it into the heading). This holds no matter where in the heading the
+reference sits: `## Psalm 90` and `## Notes on Psalm 90` are both left alone. A `#`-run that does
+not form a heading — `#Psalm 90` with no space (a tag), or 7+ hashes — is ordinary text and still
+gets linked.
+
 2. Where [Book] can be a full name or an abbreviation, with prefix as applicable. Note that prefixes can be in several formats:
 
 - 1, 2, 3
