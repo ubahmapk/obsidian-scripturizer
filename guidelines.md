@@ -77,6 +77,8 @@ ESV text is fetched from Crossway's own API (https://api.esv.org) instead, which
 
 For ESV callouts, any pre-verse label text Crossway provides — psalm superscriptions ("A Psalm of David..."), acrostic letters ("Aleph", "Beth"), and speaker labels ("She", "Others") — is rendered on its own italic line, immediately below the passage reference/link and immediately above the verse text it introduces, with no blank lines around it. Poetry line breaks inside a verse are preserved as separate lines, faithful to the source formatting.
 
+Callouts fetched through API.Bible (CSB, NASB, AMP) follow the same conventions: psalm superscriptions ("Of David.") render on their own italic line with no blank lines around them, poetry line breaks inside a verse are preserved as separate lines, and explicit blank lines in the source (stanza breaks) are kept as blank callout lines. Editorial section headings the API supplies (e.g. "The Forgiving God") are omitted — they are reading aids, not Scripture text. Raised text-critical apparatus (e.g. the CSB's comma marking the bracketed doxology of Matt 6:13) is omitted as well.
+
 ## Logos References
 
 The end result of a verse will follow this pattern:

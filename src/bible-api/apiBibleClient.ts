@@ -55,9 +55,13 @@ export async function fetchEnglishBibles(apiKey: string): Promise<BibleCatalogEn
 }
 
 export async function fetchPassage(bibleId: string, passageId: string, apiKey: string): Promise<unknown> {
+	// include-titles=true is what surfaces psalm superscriptions (`d` paras like "Of
+	// David.") — they ride the same flag as editorial section headings, which the
+	// formatter then drops (`s1` paras), mirroring the Crossway engine's
+	// include-headings=false + psalm-title handling. Verified live against API.Bible.
 	const path =
 		`/v1/bibles/${encodeURIComponent(bibleId)}/passages/${encodeURIComponent(passageId)}` +
-		`?content-type=json&include-verse-numbers=true&include-titles=false` +
+		`?content-type=json&include-verse-numbers=true&include-titles=true` +
 		`&include-chapter-numbers=false&include-notes=false`;
 	const body = await get(path, apiKey);
 	if (typeof body !== "object" || body === null || !("data" in body)) {

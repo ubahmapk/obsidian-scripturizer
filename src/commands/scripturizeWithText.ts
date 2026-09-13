@@ -131,8 +131,8 @@ export async function buildCalloutBlocksForMatch(
 
 	const bibleId = await resolveBibleId(job.translationCode, settings, saveSettings);
 	const passageData = await fetchPassage(bibleId, job.passageId, settings.apiKey);
-	const verses = parsePassageJson(passageData);
-	const body = formatCalloutBody(verses, job.chapter);
+	const blocks = parsePassageJson(passageData);
+	const body = formatCalloutBody(blocks, job.chapter);
 	if (body.length === 0) return undefined;
 	return `${formatCalloutHeader(job.link.linkText, job.link.url)}\n${body}`;
 }
