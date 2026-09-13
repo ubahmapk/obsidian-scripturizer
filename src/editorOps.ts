@@ -201,6 +201,9 @@ export async function planScripturize(
  * `editor.transaction` call (a single undo step in Obsidian). Zero edits → zero transaction
  * calls, so a no-op run never leaves an empty undo step. Offsets shifted by `baseOffset`
  * (0 for a whole-note scan; the offset of a single line's start for a line-scoped scan).
+ * `scanWindow`, when given, is text-relative (NOT baseOffset-shifted) and restricts linking
+ * to matches fully inside it — the line command uses it to scan the full document for
+ * protection context while editing only the cursor's own line.
  */
 export async function runScripturize(
 	editor: Editor,
@@ -208,8 +211,9 @@ export async function runScripturize(
 	baseOffset: number,
 	settings: ScripturizerSettings,
 	calloutBuilder?: CalloutBuilder,
+	scanWindow?: [number, number],
 ): Promise<{ linked: number; calloutsInserted: number; calloutsFailed: number }> {
-	const plan = await planScripturize(text, baseOffset, settings, calloutBuilder);
+	const plan = await planScripturize(text, baseOffset, settings, calloutBuilder, scanWindow);
 	if (plan.edits.length > 0) {
 		editor.transaction({
 			changes: plan.edits.map((e) => ({ from: editor.offsetToPos(e.start), to: editor.offsetToPos(e.end), text: e.text })),
