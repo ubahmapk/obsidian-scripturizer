@@ -12,8 +12,8 @@ into a `bible-ref` callout beneath it.
 - Full book names and common abbreviations, including numbered-book prefixes in several forms:
   `1 Samuel`, `1Samuel`, `I Samuel`, `First Samuel`, `1st Samuel`.
 - An optional trailing translation: `Rom 8:28 NASB` or `Rom 8:28 (NASB)`. Supported
-  translations: **CSB** (default), **NASB** (2020), **AMP**, **ESV** (via the
-  Crossway API).
+  translations: **CSB** (default), **NASB** (2020), **AMP**, **BSB**, **ASV**, **WEB**, **ESV**
+  (via the Crossway API).
 
 Matching is case-sensitive against each book's conventional capitalization (e.g. `Amos`, `Am`)
 — this is deliberate, to avoid short abbreviations colliding with ordinary words in prose.
@@ -35,7 +35,8 @@ headings are never linkified or given callouts.
 
 ## Setup
 
-1. Get a free API.Bible key at https://scripture.api.bible — used for CSB, NASB, and AMP text.
+1. Get a free API.Bible key at https://scripture.api.bible — used for CSB, NASB, AMP, BSB, ASV,
+   and WEB text.
 2. For ESV text, get a free Crossway key at https://api.esv.org/account/create-application/
    (requires a free ESV.org account).
 3. In Obsidian, open **Settings → Scripturizer** and paste your key(s) in.
@@ -51,8 +52,8 @@ This plugin talks to three external services:
 
 - **[API.Bible](https://scripture.api.bible)** — the plugin makes network requests here (via
   Obsidian's `requestUrl()`) only when you run **Scripturize note (with text)**, to fetch the
-  passage text for each CSB/NASB/AMP reference and to look up which translation edition to
-  use. **A free API.Bible account and API key are required** for those translations —
+  passage text for each CSB/NASB/AMP/BSB/ASV/WEB reference and to look up which translation
+  edition to use. **A free API.Bible account and API key are required** for those translations —
   without one configured in settings, their fetches fail with a clear error and no request
   is made.
 - **[Crossway ESV API](https://api.esv.org)** — ESV references are fetched here instead (also

@@ -44,6 +44,7 @@ export interface BibleCatalogEntry {
 	id: string;
 	abbreviation: string;
 	name: string;
+	description: string | null;
 }
 
 export async function fetchEnglishBibles(apiKey: string): Promise<BibleCatalogEntry[]> {

@@ -68,9 +68,12 @@ gets linked.
 - CSB (Christian Standard Bible) — via API.Bible
 - NASB (New American Standard Bible 2020) — via API.Bible
 - AMP (Amplified Version) — via API.Bible
+- BSB (Berean Standard Bible) — via API.Bible
+- ASV (American Standard Version) — via API.Bible
+- WEB (World English Bible) — via API.Bible
 - ESV (English Standard Version) — via the Crossway API, which requires its own free API key
 
-A reference whose translation is recognized but **not** one of these four is still linked (and,
+A reference whose translation is recognized but **not** one of these seven is still linked (and,
 if otherwise eligible, would have gotten a callout) — but no fetch is attempted, and no
 callout is inserted; the reference is left as a link only. Fetch-translation support may
 be expanded in future versions.
@@ -85,7 +88,7 @@ ESV text is fetched from Crossway's own API (https://api.esv.org) instead, which
 
 For ESV callouts, any pre-verse label text Crossway provides — psalm superscriptions ("A Psalm of David..."), acrostic letters ("Aleph", "Beth"), and speaker labels ("She", "Others") — is rendered on its own italic line, immediately below the passage reference/link and immediately above the verse text it introduces, with no blank lines around it. Poetry line breaks inside a verse are preserved as separate lines, faithful to the source formatting.
 
-Callouts fetched through API.Bible (CSB, NASB, AMP) follow the same conventions: psalm superscriptions ("Of David.") render on their own italic line with no blank lines around them, poetry line breaks inside a verse are preserved as separate lines, and explicit blank lines in the source (stanza breaks) are kept as blank callout lines. Editorial section headings the API supplies (e.g. "The Forgiving God") are omitted — they are reading aids, not Scripture text. Raised text-critical apparatus (e.g. the CSB's comma marking the bracketed doxology of Matt 6:13) is omitted as well.
+Callouts fetched through API.Bible (CSB, NASB, AMP, BSB, ASV, WEB) follow the same conventions: psalm superscriptions ("Of David.") render on their own italic line with no blank lines around them, poetry line breaks inside a verse are preserved as separate lines, and explicit blank lines in the source (stanza breaks) are kept as blank callout lines. Editorial section headings the API supplies (e.g. "The Forgiving God") are omitted — they are reading aids, not Scripture text. Raised text-critical apparatus (e.g. the CSB's comma marking the bracketed doxology of Matt 6:13) is omitted as well.
 
 ## Logos References
 
@@ -109,8 +112,8 @@ A callout (with fetched verse text) is only ever inserted for a reference that s
 1. **It is effectively alone on its line** — nothing else on the line but whitespace, or the
    reference is a bullet-point/numbered-list item (a bullet point is treated as if it were on its
    own line). A reference embedded mid-sentence, alongside other text, never gets a callout.
-2. **Its translation is one Scripturizer can fetch text for** (CSB, NASB, or AMP — see "How
-   Scripturizer Determines Scripture Translation" above).
+2. **Its translation is one Scripturizer can fetch text for** (CSB, NASB, AMP, BSB, ASV, or WEB —
+   see "How Scripturizer Determines Scripture Translation" above).
 
 When a reference is alone on its line (or a bullet point) and callout-eligible, the reference
 text itself is replaced entirely by the callout block — the callout's own header line is the

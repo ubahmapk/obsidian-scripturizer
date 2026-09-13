@@ -1,11 +1,20 @@
 import { fetchEnglishBibles, ApiBibleError, type BibleCatalogEntry } from "./apiBibleClient";
-import { TRANSLATIONS, type TranslationCode } from "../data/translations";
+import { TRANSLATIONS, type ApiBibleTranslationEntry, type TranslationCode } from "../data/translations";
 import type { ScripturizerSettings } from "../settings";
 
-function matches(entry: BibleCatalogEntry, matchers: string[]): boolean {
+function matches(entry: BibleCatalogEntry, translation: ApiBibleTranslationEntry): boolean {
 	const name = entry.name.toLowerCase();
 	const abbrev = entry.abbreviation.toLowerCase();
-	return matchers.some((m) => name.includes(m.toLowerCase()) || abbrev === m.toLowerCase());
+	const matchesNameOrAbbrev = translation.bibleApiMatchers.some(
+		(m) => name.includes(m.toLowerCase()) || abbrev === m.toLowerCase(),
+	);
+	if (!matchesNameOrAbbrev) return false;
+
+	if (translation.descriptionMatcher) {
+		const description = entry.description?.toLowerCase() ?? "";
+		return description.includes(translation.descriptionMatcher.toLowerCase());
+	}
+	return true;
 }
 
 /**
@@ -29,7 +38,7 @@ export async function resolveBibleId(
 	}
 
 	const catalog = await fetchEnglishBibles(settings.apiKey);
-	const found = catalog.find((entry) => matches(entry, translation.bibleApiMatchers));
+	const found = catalog.find((entry) => matches(entry, translation));
 	if (!found) {
 		throw new ApiBibleError(
 			`Scripturizer: could not find an API.Bible entry matching "${translation.displayName}"`,

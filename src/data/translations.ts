@@ -1,4 +1,4 @@
-export type TranslationCode = "CSB" | "NASB" | "AMP" | "ESV";
+export type TranslationCode = "CSB" | "NASB" | "AMP" | "ESV" | "BSB" | "ASV" | "WEB";
 
 /** Translation whose verse text is fetched from API.Bible (scripture.api.bible). */
 export interface ApiBibleTranslationEntry {
@@ -8,6 +8,10 @@ export interface ApiBibleTranslationEntry {
 	// Substrings used to match this translation against API.Bible's /v1/bibles catalog
 	// (matched case-insensitively against both `abbreviation` and `name` fields).
 	bibleApiMatchers: string[];
+	// When multiple catalog entries share the same abbreviation/name (e.g. API.Bible lists
+	// separate Protestant/Catholic/Orthodox/Ecumenical editions of the WEB), this narrows the
+	// match to entries whose `description` field contains this substring (case-insensitive).
+	descriptionMatcher?: string;
 }
 
 /** Translation whose verse text is fetched from Crossway's own ESV API (api.esv.org). */
@@ -42,6 +46,25 @@ export const TRANSLATIONS: TranslationEntry[] = [
 		code: "ESV",
 		displayName: "English Standard Version",
 		engine: "crossway",
+	},
+	{
+		code: "BSB",
+		displayName: "Berean Standard Bible",
+		engine: "api-bible",
+		bibleApiMatchers: ["bsb", "berean standard bible"],
+	},
+	{
+		code: "ASV",
+		displayName: "American Standard Version",
+		engine: "api-bible",
+		bibleApiMatchers: ["asv", "american standard version"],
+	},
+	{
+		code: "WEB",
+		displayName: "World English Bible",
+		engine: "api-bible",
+		bibleApiMatchers: ["web", "world english bible"],
+		descriptionMatcher: "protestant",
 	},
 ];
 

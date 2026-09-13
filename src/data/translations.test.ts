@@ -14,7 +14,7 @@ describe("translation registry with engine discriminated union", () => {
 	});
 
 	test("existing API.Bible translations keep their engine and matchers", () => {
-		for (const code of ["CSB", "NASB", "AMP"] as const) {
+		for (const code of ["CSB", "NASB", "AMP", "BSB", "ASV", "WEB"] as const) {
 			const entry = getTranslation(code);
 			expect(entry).toBeDefined();
 			expect(entry?.engine).toBe("api-bible");
@@ -29,6 +29,9 @@ describe("translation registry with engine discriminated union", () => {
 		expect(isTranslationCode("CSB")).toBe(true);
 		expect(isTranslationCode("NASB")).toBe(true);
 		expect(isTranslationCode("AMP")).toBe(true);
+		expect(isTranslationCode("BSB")).toBe(true);
+		expect(isTranslationCode("ASV")).toBe(true);
+		expect(isTranslationCode("WEB")).toBe(true);
 		expect(isTranslationCode("KJV")).toBe(false);
 		expect(isTranslationCode("esv")).toBe(true); // case-insensitive
 	});
@@ -45,5 +48,13 @@ describe("translation registry with engine discriminated union", () => {
 		for (const t of TRANSLATIONS) expect(t.code.length).toBeGreaterThan(0);
 		expect(TRANSLATION_CODES).toContain("ESV");
 		expect(DEFAULT_TRANSLATION).toBe("CSB");
+	});
+
+	test("WEB carries a descriptionMatcher to disambiguate its Protestant catalog edition", () => {
+		const web = getTranslation("WEB");
+		expect(web?.engine).toBe("api-bible");
+		if (web?.engine === "api-bible") {
+			expect(web.descriptionMatcher).toBe("protestant");
+		}
 	});
 });

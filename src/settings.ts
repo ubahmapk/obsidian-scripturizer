@@ -87,7 +87,7 @@ export class ScripturizerSettingTab extends PluginSettingTab {
 			.setName("Refresh Bible ID cache")
 			.setDesc(
 				"Clears and re-resolves the API.Bible bibleId cached for each API.Bible " +
-					"translation (CSB, NASB, AMP). Use this if a translation stops resolving correctly.",
+					"translation (CSB, NASB, AMP, BSB, ASV, WEB). Use this if a translation stops resolving correctly.",
 			)
 			.addButton((button) => {
 				button.setButtonText("Refresh").onClick(async () => {
