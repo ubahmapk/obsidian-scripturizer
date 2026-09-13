@@ -141,6 +141,63 @@ describe("runScripturize", () => {
 		expect(editor.getValue()).toBe("See [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB) for more.");
 	});
 
+	test("a reference in an ATX heading is left entirely alone (issue #5)", async () => {
+		const text = "## Psalm 90";
+		const editor = makeFakeEditor(text);
+
+		const result = await runScripturize(editor, text, 0, DEFAULT_SETTINGS);
+
+		expect(result.linked).toBe(0);
+		expect(editor.getValue()).toBe("## Psalm 90");
+		expect(editor.transactionCalls).toHaveLength(0);
+	});
+
+	test("a heading reference stays plain while body references in the same note link", async () => {
+		const text = "## Psalm 90\n\nA comment on Psalm 90:1 here.";
+		const editor = makeFakeEditor(text);
+
+		await runScripturize(editor, text, 0, DEFAULT_SETTINGS);
+
+		expect(editor.getValue()).toBe(
+			"## Psalm 90\n\nA comment on [Psalms 90:1 (CSB)](https://ref.ly/Ps90.1;CSB) here.",
+		);
+	});
+
+	test("a setext heading (`===` underline) is left alone too", async () => {
+		const text = "Psalm 90\n===\n\nA comment on Psalm 90:1 here.";
+		const editor = makeFakeEditor(text);
+
+		await runScripturize(editor, text, 0, DEFAULT_SETTINGS);
+
+		expect(editor.getValue()).toBe(
+			"Psalm 90\n===\n\nA comment on [Psalms 90:1 (CSB)](https://ref.ly/Ps90.1;CSB) here.",
+		);
+	});
+
+	test("`#Psalm 90` (no space, a tag) is not a heading and still links", async () => {
+		const text = "#Psalm 90";
+		const editor = makeFakeEditor(text);
+
+		await runScripturize(editor, text, 0, DEFAULT_SETTINGS);
+
+		expect(editor.getValue()).toBe("#[Psalms 90 (CSB)](https://ref.ly/Ps90;CSB)");
+	});
+
+	test("with a callout builder, a heading stays plain while an own-line body reference still gets its callout", async () => {
+		const text = "## Psalm 90\n\n2 Corinthians 7:10";
+		const editor = makeFakeEditor(text);
+		const calloutBuilder = makeCalloutBuilder(
+			(raw) => `> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** text for ${raw}`,
+		);
+
+		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
+
+		expect(editor.getValue()).toBe(
+			"## Psalm 90\n\n> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n" +
+				"> **7.10** text for 2 Corinthians 7:10",
+		);
+	});
+
 	test("a callout gets a blank line inserted before it when preceded by non-blank-separated text", async () => {
 		const text = "Some heading\nRom 8:28";
 		const editor = makeFakeEditor(text);
