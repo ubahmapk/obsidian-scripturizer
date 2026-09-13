@@ -104,6 +104,20 @@ function flushLabel(state: ParserState): void {
 	if (text.length > 0) state.blocks.push({ kind: "label", text });
 }
 
+/**
+ * Strips CSB cross-reference caller marks (a bare `#`, wrapped in non-breaking spaces) that
+ * ride inline inside the reading text itself rather than as a separate note node — confirmed
+ * live against Luke 18:11 CSB (issue #6): the raw text is literally
+ * `"...other people #— #greedy,..."`. `include-notes=false` suppresses the note
+ * body but not this caller, so it has to be stripped from the text content directly. Each
+ * caller carries a non-breaking space on the side facing the surrounding words (both sides,
+ * when it sits between two words); stripping ` ?# ?` removes the caller and its
+ * bordering non-breaking space(s) without disturbing real punctuation like the em dash.
+ */
+function stripCrossReferenceCallers(text: string): string {
+	return text.replace(/ ?# ?/g, "");
+}
+
 function walkItems(nodes: JsonNode[], state: ParserState): void {
 	for (const node of nodes) {
 		// `sup`-styled chars are the CSB's raised text-critical apparatus (e.g. Matt 6:13's
@@ -122,7 +136,7 @@ function walkItems(nodes: JsonNode[], state: ParserState): void {
 			// poetry continuation lines to the right chapter.
 			const chapter = chapterFromVerseId(node.attrs?.verseId);
 			if (chapter !== undefined) state.chapter = chapter;
-			state.buffer += node.text;
+			state.buffer += stripCrossReferenceCallers(node.text);
 			continue;
 		}
 		if (Array.isArray(node.items)) {

@@ -19,6 +19,7 @@ const crossing = fixtureData("2cor7-8-crossing.json");
 const psalm103 = fixtureData("psalm103-1-5.json");
 const matt6 = fixtureData("matt6-9-13.json");
 const psalm3Chapter = fixtureData("psalm3-chapter.json");
+const luke18_11 = fixtureData("luke18-11.json");
 
 /** Narrows parsed blocks to verse blocks — label blocks (superscriptions) are asserted separately. */
 function versesOf(blocks: FormattedBlock[]): FormattedVerse[] {
@@ -253,6 +254,28 @@ describe("verseFormatter against a real API.Bible content-type=json response", (
 					"> you break the teeth of the wicked.\n" +
 					"> **8** Salvation belongs to the Lord;\n" +
 					"> may your blessing be on your people. Selah",
+			);
+		});
+	});
+
+	// Fixture captured live against a real API.Bible content-type=json response for Luke
+	// 18:11 (CSB), while fixing issue #6. The raw text itself carries CSB's bare `#`
+	// cross-reference caller marks, non-breaking-space-padded, straddling the em dash:
+	// `"...other people #— #greedy,..."` — include-notes=false suppresses the
+	// note body but not this inline caller.
+	describe("cross-reference callers embedded in text (issue #6)", () => {
+		test("luke18-11: the `#` callers and their padding non-breaking spaces are stripped", () => {
+			const verses = versesOf(parsePassageJson(luke18_11));
+			expect(verses[0]?.lines.join(" ")).toContain("other people—greedy, unrighteous,");
+			expect(verses[0]?.lines.join(" ")).not.toContain("#");
+		});
+
+		test("luke18-11: renders the callout body with a clean em dash, no stray `#`", () => {
+			const body = formatCalloutBody(parsePassageJson(luke18_11), 18);
+			expect(body).toBe(
+				"> **18.11** The Pharisee was standing and praying like this about himself: " +
+					"‘God, I thank you that I’m not like other people—greedy, unrighteous, " +
+					"adulterers, or even like this tax collector.",
 			);
 		});
 	});
