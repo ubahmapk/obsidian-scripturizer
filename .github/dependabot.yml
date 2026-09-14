@@ -1,0 +1,25 @@
+# Dependabot version updates
+# Docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+#
+# This activates Dependabot version-update PRs as soon as this file lands on
+# the default branch. (Dependabot *security* updates are a separate repo
+# setting under Settings -> Code security.)
+version: 2
+
+updates:
+  # npm — everything in package.json is a devDependency (build tooling, lint,
+  # tests, and the obsidian API typings); the shipped plugin bundles no
+  # runtime deps. Group them into one PR per week so review stays cheap.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+
+  # GitHub Actions used by .github/workflows/release.yml.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
