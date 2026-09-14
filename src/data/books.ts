@@ -116,7 +116,8 @@ export function expandBookNames(books: BookEntry[] = BOOKS): ExpandedBookName[] 
 			for (const base of bases) out.push({ bookId: book.id, text: base });
 			continue;
 		}
-		for (const [numeral, prefixes] of Object.entries(NUMBER_PREFIXES)) {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+for (const [numeral, prefixes] of Object.entries(NUMBER_PREFIXES) as [string, string[]][]) {
 			for (const prefix of prefixes) {
 				for (const base of bases) {
 					out.push({ bookId: book.id, text: `${prefix}${base}`, numeral });
