@@ -6,8 +6,7 @@ export type ProtectedRange = [start: number, end: number];
 // form we need to protect against re-processing.
 const MARKDOWN_LINK_RE = /\[[^\]\n]*\]\([^)\n]*\)/g;
 
-// `bible-ref` is the legacy spelling; notes written before the rename must stay protected.
-export const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bible-?ref\]/;
+export const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bibleref\]/;
 export const CALLOUT_CONTINUATION_RE = /^[ \t]*>/;
 
 // ATX heading: up to three leading spaces/tabs, one to six `#`s, then whitespace or end of

@@ -49,20 +49,6 @@ describe("computeProtectedRanges + filterUnprotected", () => {
 		expect(text.slice(kept[0]!.start, kept[0]!.end)).toBe("Rom 8:28");
 	});
 
-	test("still protects the legacy `bible-ref` spelling in notes written before the rename", () => {
-		const text = [
-			"> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
-			"> **15.25** text mentioning Rom 8:28 inside the callout body",
-			"",
-			"Rom 8:29 is outside.",
-		].join("\n");
-
-		const kept = filterUnprotected(findReferences(text), computeProtectedRanges(text));
-
-		expect(kept).toHaveLength(1);
-		expect(text.slice(kept[0]!.start, kept[0]!.end)).toBe("Rom 8:29");
-	});
-
 	test("does not protect a plain-text reference on the same line as, but outside, an existing link", () => {
 		const text = "[Luke 15:25–32](https://ref.ly/Luke15.25–32;CSB) and also John 3:16";
 		const matches = findReferences(text);
