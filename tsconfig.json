@@ -3,6 +3,7 @@
 		"baseUrl": ".",
 		"ignoreDeprecations": "6.0",
 		"rootDir": "./",
+		"types": ["jest", "node"],
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"module": "ESNext",
