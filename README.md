@@ -3,7 +3,7 @@
 Detects Bible references typed as plain text in your notes, links each one to the matching
 passage on [ref.ly](https://ref.ly), and — optionally — fetches the passage text from
 [API.Bible](https://scripture.api.bible) or the [Crossway ESV API](https://api.esv.org)
-into a `bible-ref` callout beneath it.
+into a `bibleref` callout beneath it.
 
 ## What it recognizes
 
@@ -23,13 +23,13 @@ Matching is case-sensitive against each book's conventional capitalization (e.g.
 - **Scripturize note (with text)** — scans the active selection when text is selected (multiple
   selections are all handled in one run and one undo step); with no selection, it scans the whole
   note as before. Each recognized reference fully inside the scanned text is replaced with a
-  hyperlink, and a `> [!bible-ref]` callout with the fetched passage text is inserted immediately
+  hyperlink, and a `> [!bibleref]` callout with the fetched passage text is inserted immediately
   after it. References already linked, inside an existing callout, or in a heading are still skipped.
 - **Link references only (current line)** — only looks at the line the cursor is on, and only
   inserts the hyperlink (no API.Bible call, no callout).
 
 Both commands skip references that are already inside a Markdown link or an existing
-`bible-ref` callout, so re-running them is safe. References in headings (`## Psalm 90`-style
+`bibleref` callout, so re-running them is safe. References in headings (`## Psalm 90`-style
 ATX lines, or setext headings underlined with `===`/`---`) are always left as plain text —
 headings are never linkified or given callouts.
 

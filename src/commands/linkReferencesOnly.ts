@@ -9,7 +9,7 @@ export async function linkReferencesOnlyCommand(editor: Editor, settings: Script
 	const lineText = editor.getLine(lineNum);
 
 	// Scans the FULL note (baseOffset 0), not just the line's own text, so protection context
-	// — existing links, `bible-ref` callout blocks, and heading lines (ATX, or a setext
+	// — existing links, `bibleref` callout blocks, and heading lines (ATX, or a setext
 	// underline that sits below the line) — behaves exactly like a whole-note run. The scan
 	// window keeps the actual linking scoped to the cursor's own line: nothing outside it is
 	// ever edited.

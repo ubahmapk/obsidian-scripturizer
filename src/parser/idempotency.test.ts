@@ -9,9 +9,9 @@ describe("computeProtectedRanges + filterUnprotected", () => {
 		expect(filterUnprotected(matches, protectedRanges)).toHaveLength(0);
 	});
 
-	test("skips references inside an existing bible-ref callout, including across blank continuation lines", () => {
+	test("skips references inside an existing bibleref callout, including across blank continuation lines", () => {
 		const text = [
-			"> [!bible-ref] [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
+			"> [!bibleref] [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
 			"> **15.25** text mentioning Rom 8:28 inside the callout body",
 			">",
 			"> **28** more text with John 3:16 also inside",
@@ -29,13 +29,13 @@ describe("computeProtectedRanges + filterUnprotected", () => {
 	});
 
 	test("skips references inside a foldable `+` callout — both current and legacy header forms stay protected", () => {
-		// Scripturizer emits `> [!bible-ref]+ ` (foldable) headers; older notes carry the bare
-		// `> [!bible-ref] ` form. Re-running must never re-process a reference inside either.
+		// Scripturizer emits `> [!bibleref]+ ` (foldable) headers; older notes carry the bare
+		// `> [!bibleref] ` form. Re-running must never re-process a reference inside either.
 		const text = [
-			"> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
+			"> [!bibleref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
 			"> **15.25** text mentioning Rom 8:28 inside the callout body",
 			"",
-			"> [!bible-ref] [John 3:16 (CSB)](https://ref.ly/John3.16;CSB)",
+			"> [!bibleref] [John 3:16 (CSB)](https://ref.ly/John3.16;CSB)",
 			"> **3.16** more text with Rom 8:29 also inside",
 			"",
 			"Rom 8:28 is a plain-text reference outside the callouts.",

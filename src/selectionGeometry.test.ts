@@ -104,22 +104,22 @@ describe("expandSelectionFragment", () => {
 	});
 
 	it("completes a callout block upward from a body-line selection", () => {
-		const doc = "text\n> [!bible-ref]+ [Rom 8:28 (CSB)](u)\n> body line\nafter";
+		const doc = "text\n> [!bibleref]+ [Rom 8:28 (CSB)](u)\n> body line\nafter";
 		// Select "body" inside "> body line".
 		const selStart = doc.indexOf("body");
 		const selEnd = selStart + 4;
 		const r = expandSelectionFragment(doc, selStart, selEnd);
-		// Fragment must reach the start of the "> [!bible-ref]" line (offset of ">" after "text\n").
+		// Fragment must reach the start of the "> [!bibleref]" line (offset of ">" after "text\n").
 		expect(r.fragmentStart).toBe("text\n".length);
 	});
 
 	it("does NOT extend upward when the top line is the callout start line itself", () => {
-		const doc = "text\n> [!bible-ref]+ [Rom 8:28 (CSB)](u)\nafter";
-		// Select "bible-ref" inside the callout start line.
-		const selStart = doc.indexOf("bible-ref");
+		const doc = "text\n> [!bibleref]+ [Rom 8:28 (CSB)](u)\nafter";
+		// Select "bibleref" inside the callout start line.
+		const selStart = doc.indexOf("bibleref");
 		const selEnd = selStart + 9;
 		const r = expandSelectionFragment(doc, selStart, selEnd);
-		// Line bounds: "> [!bible-ref]+ ..." starts at "text\n".length; context line above is
+		// Line bounds: "> [!bibleref]+ ..." starts at "text\n".length; context line above is
 		// "text" at [0,4), so fragmentStart = 0 — upward callout walk stops because the
 		// line above is not a continuation line.
 		expect(r.fragmentStart).toBe(0);
@@ -153,10 +153,10 @@ describe("expandSelectionFragment", () => {
 	});
 
 	it("completes a callout block upward across multiple continuation lines", () => {
-		const doc = "text\n> [!bible-ref]+ [Jn 3:16 (CSB)](u)\n> body1\n> body2\nafter";
+		const doc = "text\n> [!bibleref]+ [Jn 3:16 (CSB)](u)\n> body1\n> body2\nafter";
 		// Select "body2" inside "> body2". After (b) the top line is "> body1" — a continuation
 		// line that is NOT a callout start — so (d)'s upward walk extends past it to the
-		// "> [!bible-ref]" start line.
+		// "> [!bibleref]" start line.
 		const selStart = doc.indexOf("body2");
 		const selEnd = selStart + "body2".length;
 		const r = expandSelectionFragment(doc, selStart, selEnd);

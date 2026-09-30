@@ -25,14 +25,14 @@ describe("runScripturize", () => {
 		const text = "Some heading\n\n2 Corinthians 7:10\n\nMore text after.";
 		const editor = makeFakeEditor(text);
 		const calloutBuilder = makeCalloutBuilder(
-			(raw) => `> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** text for ${raw}`,
+			(raw) => `> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** text for ${raw}`,
 		);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		const result = editor.getValue();
 		expect(result).toBe(
-			"Some heading\n\n> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n" +
+			"Some heading\n\n> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n" +
 				"> **7.10** text for 2 Corinthians 7:10\n\nMore text after.",
 		);
 		// The exact bug reported: the link text must not appear twice.
@@ -45,7 +45,7 @@ describe("runScripturize", () => {
 		const editor = makeFakeEditor(text);
 		const seenMatches: ParsedReference[][] = [];
 		const calloutBuilder = makeCalloutBuilder(
-			() => `> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...`,
+			() => `> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...`,
 			seenMatches,
 		);
 
@@ -76,7 +76,7 @@ describe("runScripturize", () => {
 		const editor = makeFakeEditor(text);
 		const seenMatches: ParsedReference[][] = [];
 		const calloutBuilder = makeCalloutBuilder(
-			(raw) => `> [!bible-ref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n> **7.10** text for ${raw}`,
+			(raw) => `> [!bibleref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n> **7.10** text for ${raw}`,
 			seenMatches,
 		);
 
@@ -85,7 +85,7 @@ describe("runScripturize", () => {
 		expect(seenMatches[0]).toHaveLength(1);
 		expect(seenMatches[0]?.[0]?.translationCode).toBe("ESV");
 		expect(editor.getValue()).toBe(
-			"> [!bible-ref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n" +
+			"> [!bibleref]+ [2 Corinthians 7:10 (ESV)](https://ref.ly/2Cor7.10;ESV)\n" +
 				"> **7.10** text for 2 Corinthians 7:10 (ESV)",
 		);
 	});
@@ -94,13 +94,13 @@ describe("runScripturize", () => {
 		const text = "- 2 Corinthians 7:10\n- Something else";
 		const editor = makeFakeEditor(text);
 		const calloutBuilder = makeCalloutBuilder(
-			() => `> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...`,
+			() => `> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...`,
 		);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		expect(editor.getValue()).toBe(
-			"> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...\n\n- Something else",
+			"> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** ...\n\n- Something else",
 		);
 	});
 
@@ -108,13 +108,13 @@ describe("runScripturize", () => {
 		const text = "Rom 8:28\nRom 8:29";
 		const editor = makeFakeEditor(text);
 		const calloutBuilder = makeCalloutBuilder(
-			(raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`,
+			(raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`,
 		);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		expect(editor.getValue()).toBe(
-			"> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:29",
+			"> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:29",
 		);
 	});
 
@@ -122,13 +122,13 @@ describe("runScripturize", () => {
 		const text = "Rom 8:28\n\nRom 8:29";
 		const editor = makeFakeEditor(text);
 		const calloutBuilder = makeCalloutBuilder(
-			(raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`,
+			(raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`,
 		);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		expect(editor.getValue()).toBe(
-			"> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:29",
+			"> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:29",
 		);
 	});
 
@@ -187,13 +187,13 @@ describe("runScripturize", () => {
 		const text = "## Psalm 90\n\n2 Corinthians 7:10";
 		const editor = makeFakeEditor(text);
 		const calloutBuilder = makeCalloutBuilder(
-			(raw) => `> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** text for ${raw}`,
+			(raw) => `> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n> **7.10** text for ${raw}`,
 		);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		expect(editor.getValue()).toBe(
-			"## Psalm 90\n\n> [!bible-ref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n" +
+			"## Psalm 90\n\n> [!bibleref]+ [2 Corinthians 7:10 (CSB)](https://ref.ly/2Cor7.10;CSB)\n" +
 				"> **7.10** text for 2 Corinthians 7:10",
 		);
 	});
@@ -201,43 +201,43 @@ describe("runScripturize", () => {
 	test("a callout gets a blank line inserted before it when preceded by non-blank-separated text", async () => {
 		const text = "Some heading\nRom 8:28";
 		const editor = makeFakeEditor(text);
-		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
-		expect(editor.getValue()).toBe("Some heading\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28");
+		expect(editor.getValue()).toBe("Some heading\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28");
 	});
 
 	test("an existing blank line before a callout is not doubled", async () => {
 		const text = "Some heading\n\nRom 8:28";
 		const editor = makeFakeEditor(text);
-		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
-		expect(editor.getValue()).toBe("Some heading\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28");
+		expect(editor.getValue()).toBe("Some heading\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28");
 	});
 
 	test("no leading blank line is added when the callout is the very first line of the note", async () => {
 		const text = "Rom 8:28\nMore text after.";
 		const editor = makeFakeEditor(text);
-		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
-		expect(editor.getValue()).toBe("> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\nMore text after.");
+		expect(editor.getValue()).toBe("> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\nMore text after.");
 	});
 
 	test("both leading and trailing blank lines are correct for a callout in the middle of several references", async () => {
 		const text = "Intro text\nRom 8:28\nRom 8:29\nOutro text";
 		const editor = makeFakeEditor(text);
-		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+		const calloutBuilder = makeCalloutBuilder((raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`);
 
 		await runScripturize(editor, text, 0, DEFAULT_SETTINGS, calloutBuilder);
 
 		expect(editor.getValue()).toBe(
-			"Intro text\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n" +
-				"> [!bible-ref]+ [link](url)\n> body for Rom 8:29\n\nOutro text",
+			"Intro text\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\n" +
+				"> [!bibleref]+ [link](url)\n> body for Rom 8:29\n\nOutro text",
 		);
 	});
 });
@@ -245,11 +245,11 @@ describe("runScripturize", () => {
 describe("planScripturize (pure planning, single-transaction apply)", () => {
 	const MULTI_CALLOUT_TEXT = "Intro text\nRom 8:28\nRom 8:29\nOutro text";
 	const MULTI_CALLOUT_EXPECTED =
-		"Intro text\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n" +
-		"> [!bible-ref]+ [link](url)\n> body for Rom 8:29\n\nOutro text";
+		"Intro text\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\n" +
+		"> [!bibleref]+ [link](url)\n> body for Rom 8:29\n\nOutro text";
 
 	function makeLinkCalloutBuilder(): CalloutBuilder {
-		return makeCalloutBuilder((raw) => `> [!bible-ref]+ [link](url)\n> body for ${raw}`);
+		return makeCalloutBuilder((raw) => `> [!bibleref]+ [link](url)\n> body for ${raw}`);
 	}
 
 	test("planScripturize returns edits in ascending start order with correct counts, without touching any editor", async () => {
@@ -263,7 +263,7 @@ describe("planScripturize (pure planning, single-transaction apply)", () => {
 		// (offset 10), proving the callout edit is the leading-blank re-emission, not a mutated
 		// editor.
 		expect(plan.edits[0]?.start).toBe(10);
-		expect(plan.edits[0]?.text.startsWith("\n\n> [!bible-ref]+")).toBe(true);
+		expect(plan.edits[0]?.text.startsWith("\n\n> [!bibleref]+")).toBe(true);
 	});
 
 	test("runScripturize applies the whole plan in exactly ONE transaction call", async () => {

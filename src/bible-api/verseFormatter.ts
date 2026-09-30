@@ -212,7 +212,7 @@ export function parsePassageJson(passageData: unknown): FormattedBlock[] {
  * guidelines.md's worked example.
  */
 export function formatCalloutHeader(linkText: string, url: string): string {
-	return `> [!bible-ref]+ [${linkText}](${url})`;
+	return `> [!bibleref]+ [${linkText}](${url})`;
 }
 
 /**

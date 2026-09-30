@@ -94,14 +94,14 @@ Callouts fetched through API.Bible (CSB, NASB, AMP, BSB, ASV, WEB) follow the sa
 
 The end result of a verse will follow this pattern:
 
-> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)
+> [!bibleref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)
 > **15.25** “Now his older son was in the field; as he came near the house, he heard music and dancing. **26** So he summoned one of the servants, questioning what these things meant. **27** ‘Your brother is here,’ he told him, ‘and your father has slaughtered the fattened calf because he has him back safe and sound.’
 >
 > **28** “Then he became angry and didn’t want to go in. So his father came out and pleaded with him. **29** But he replied to his father, ‘Look, I have been slaving many years for you, and I have never disobeyed your orders, yet you never gave me a goat so that I could celebrate with my friends. **30** But when this son of yours came, who has devoured your assets with prostitutes, you slaughtered the fattened calf for him.’
 >
 > **31** “ ‘Son,’ he said to him, ‘you are always with me, and everything I have is yours. **32** But we had to celebrate and rejoice, because this brother of yours was dead and is alive again; he was lost and is found.’ ”
 
-Where the reference and verse text are in a Markdown callout ("bible-ref" class). The each verse number is in bold, and the first verse number includes the chapter number, too. Spacing between paragraphs should be maintained when present in the source text.
+Where the reference and verse text are in a Markdown callout ("bibleref" class). The each verse number is in bold, and the first verse number includes the chapter number, too. Spacing between paragraphs should be maintained when present in the source text.
 
 The Ref.ly format can be found at https://ref.ly/
 
@@ -130,7 +130,7 @@ link/callout.
 
 ### Spacing around callouts
 
-Obsidian only renders a `[!bible-ref]` marker as a new callout when it starts a fresh blockquote
+Obsidian only renders a `[!bibleref]` marker as a new callout when it starts a fresh blockquote
 block — a single newline is not enough to separate it from surrounding content or from another
 callout. The same spacing rules apply when Scripturizer runs on a selection rather than the whole
 note. Scripturizer normalizes spacing accordingly whenever it inserts a callout:
@@ -153,7 +153,7 @@ ref.ly URL (chapter repeated only on the end side), and the callout body include
 `**{chapter}.{verse}**` label at the first verse of each chapter it covers, not just the very
 first verse overall:
 
-> [!bible-ref]+ [2 Corinthians 7:16–8:2 (CSB)](https://ref.ly/2Cor7.16-8.2;CSB)
+> [!bibleref]+ [2 Corinthians 7:16–8:2 (CSB)](https://ref.ly/2Cor7.16-8.2;CSB)
 > **7.16** I rejoice that I have complete confidence in you.
 >
 > **8.1** We want you to know, brothers and sisters, about the grace of God that was given to the churches of Macedonia: **2** During a severe trial brought about by affliction, their abundant joy and their extreme poverty overflowed in a wealth of generosity on their part.
