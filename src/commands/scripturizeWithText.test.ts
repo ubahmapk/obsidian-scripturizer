@@ -51,7 +51,7 @@ describe("buildCalloutBlocksForMatch engine routing", () => {
 
 		const block = await buildCalloutBlocksForMatch(job, SETTINGS, async () => {});
 		expect(block).toBeDefined();
-		expect(block).toContain("> [!bible-ref]+ [John 3:16–18 (ESV)](https://ref.ly/John3.16-18;ESV)");
+		expect(block).toContain("> [!bibleref]+ [John 3:16–18 (ESV)](https://ref.ly/John3.16-18;ESV)");
 		expect(block).toContain("> **3.16** “For God so loved the world");
 
 		spy.mockRestore();

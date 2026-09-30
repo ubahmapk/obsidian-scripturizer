@@ -42,7 +42,7 @@ describe("linkReferencesOnlyCommand", () => {
 
 	test("a reference inside an existing callout body is skipped — the callout start line is now in context", async () => {
 		const doc =
-			"> [!bible-ref]+ [Luke 15:25 (CSB)](u)\n> **25** text with Rom 8:28 inside\nplain John 3:16 line";
+			"> [!bibleref]+ [Luke 15:25 (CSB)](u)\n> **25** text with Rom 8:28 inside\nplain John 3:16 line";
 		const editor = editorAt(doc, 1);
 
 		await linkReferencesOnlyCommand(editor, DEFAULT_SETTINGS);

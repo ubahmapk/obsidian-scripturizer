@@ -15,7 +15,7 @@ function makeCalloutBuilder(seenMatches: ParsedReference[][] = []): CalloutBuild
 		buildCallouts(matches) {
 			seenMatches.push(matches);
 			const out = new Map<number, string[]>();
-			for (const m of matches) out.set(m.start, [`> [!bible-ref]+ [link](url)\n> body for ${m.raw}`]);
+			for (const m of matches) out.set(m.start, [`> [!bibleref]+ [link](url)\n> body for ${m.raw}`]);
 			return Promise.resolve(out);
 		},
 	};
@@ -53,7 +53,7 @@ describe("planScripturize scanWindow (fragment-relative full containment)", () =
 		const edit = plan.edits[0] as Edit;
 		expect(edit.start).toBe(6);
 		expect(edit.end).toBe(16);
-		expect(edit.text).toBe("\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\n");
+		expect(edit.text).toBe("\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\n");
 		// The builder was asked for exactly the inside-window match.
 		expect(seenMatches).toHaveLength(1);
 		expect(seenMatches[0]).toHaveLength(1);
@@ -101,7 +101,7 @@ describe("planScripturize scanWindow (fragment-relative full containment)", () =
 		// NO trailing "\n\n". The edit legitimately extends past the window to the whole line.
 		expect(plan.edits[0]?.start).toBe(8);
 		expect(plan.edits[0]?.end).toBe(17);
-		expect(plan.edits[0]?.text).toBe("\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:29");
+		expect(plan.edits[0]?.text).toBe("\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:29");
 		expect(plan.calloutsInserted).toBe(1);
 		expect(plan.calloutsFailed).toBe(0);
 		expect(seenMatches).toHaveLength(1);
@@ -150,8 +150,8 @@ describe("planScripturize scanWindow (fragment-relative full containment)", () =
 		// consumed on each content-adjacent side and re-emitted as exactly "\n\n";
 		// "separator line", "Intro" and "Outro" stay intact and never merge into a blockquote.
 		expect(editor.getValue()).toBe(
-			"Intro\n\n> [!bible-ref]+ [link](url)\n> body for Rom 8:28\n\nseparator line\n\n" +
-				"> [!bible-ref]+ [link](url)\n> body for Rom 8:29\n\nOutro",
+			"Intro\n\n> [!bibleref]+ [link](url)\n> body for Rom 8:28\n\nseparator line\n\n" +
+				"> [!bibleref]+ [link](url)\n> body for Rom 8:29\n\nOutro",
 		);
 	});
 

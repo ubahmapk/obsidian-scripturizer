@@ -51,7 +51,7 @@ describe("verseFormatter against a real API.Bible content-type=json response", (
 
 	test("callout header carries the foldable `+` marker, per guidelines.md's worked example", () => {
 		expect(formatCalloutHeader("Luke 15:25–32 (CSB)", "https://ref.ly/Luke15.25–32;CSB")).toBe(
-			"> [!bible-ref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
+			"> [!bibleref]+ [Luke 15:25–32 (CSB)](https://ref.ly/Luke15.25–32;CSB)",
 		);
 	});
 

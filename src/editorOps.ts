@@ -10,7 +10,7 @@ export interface CalloutBuilder {
 	 * Fetches and formats verse text for `matches` (already pre-filtered to "callout-eligible"
 	 * matches only — see `isCalloutEligible` — so this is never asked to fetch text for a
 	 * reference that won't end up with a callout), returning one COMPLETE callout block per
-	 * verse segment (`> [!bible-ref]+ [...](...)\n> body`, header included) — keyed by the
+	 * verse segment (`> [!bibleref]+ [...](...)\n> body`, header included) — keyed by the
 	 * match's `start` offset, since that's the only stable identity available at this layer. A
 	 * missing/empty entry means that reference's fetch failed and should be skipped with a
 	 * summary Notice by the caller — Phase 5 fills this in via bible-api/.
@@ -101,7 +101,7 @@ function inlineLinkText(match: ParsedReference): string {
  * are ever fetched or given a callout — replaced in place by the callout block(s), whose own
  * header already contains the link (matching guidelines.md's exact format, and avoiding a
  * duplicate link). Any two adjacent callout blocks this produces are normalized to have exactly
- * one blank line between them, since Obsidian only renders a `[!bible-ref]` marker as a new
+ * one blank line between them, since Obsidian only renders a `[!bibleref]` marker as a new
  * callout when it starts a fresh blockquote block. Every other match (mid-sentence, an
  * unsupported translation, or a fetch failure) is just linked inline — no callout attempted.
  */

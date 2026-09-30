@@ -2,7 +2,7 @@ import type { EsvBlock } from "./passageParser";
 import type { ParsedReference } from "../parser/referenceParser";
 
 /**
- * Renders parsed ESV blocks as the `bible-ref` callout body (everything below the header
+ * Renders parsed ESV blocks as the `bibleref` callout body (everything below the header
  * line), matching the API.Bible engine's rendering conventions (verseFormatter.ts
  * formatCalloutBody): bold `{chapter.}verse` labels — chapter-qualified on the first verse
  * of each chapter, bare otherwise. A verse block's first line carries its bold label on a

@@ -79,7 +79,7 @@ export function expandSelectionFragment(doc: string, selStart: number, selEnd: n
 	}
 
 	// (d) Upward callout-block completion: so computeProtectedRanges sees the block's
-	// `[!bible-ref]` start line even when the selection begins mid-body.
+	// `[!bibleref]` start line even when the selection begins mid-body.
 	while (fragmentStart > 0) {
 		const lineEnd = doc.indexOf("\n", fragmentStart);
 		const lineText = doc.slice(fragmentStart, lineEnd === -1 ? doc.length : lineEnd);

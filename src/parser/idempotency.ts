@@ -6,7 +6,8 @@ export type ProtectedRange = [start: number, end: number];
 // form we need to protect against re-processing.
 const MARKDOWN_LINK_RE = /\[[^\]\n]*\]\([^)\n]*\)/g;
 
-export const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bible-ref\]/;
+// `bible-ref` is the legacy spelling; notes written before the rename must stay protected.
+export const CALLOUT_START_RE = /^[ \t]*>[ \t]*\[!bible-?ref\]/;
 export const CALLOUT_CONTINUATION_RE = /^[ \t]*>/;
 
 // ATX heading: up to three leading spaces/tabs, one to six `#`s, then whitespace or end of
@@ -51,8 +52,8 @@ function closesFence(fence: FenceLine, openRun: string): boolean {
  * Finds character ranges in `text` that Scripturizer must never touch: heading lines — ATX
  * (`## Psalm 90`) and setext (a paragraph block promoted by an `===`/`---` underline line),
  * where a reference must be left as plain text (issue #5) — plus ranges it must never
- * re-process: existing inline Markdown links, and existing `bible-ref` callout blocks (from
- * the callout's `[!bible-ref]` line through its last contiguous `>`-prefixed line, blank
+ * re-process: existing inline Markdown links, and existing `bibleref` callout blocks (from
+ * the callout's `[!bibleref]` line through its last contiguous `>`-prefixed line, blank
  * continuation lines included).
  */
 export function computeProtectedRanges(text: string): ProtectedRange[] {
