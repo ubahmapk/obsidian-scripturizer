@@ -1,0 +1,794 @@
+{
+  "data": {
+    "id": "PSA.119.1-PSA.119.10",
+    "orgId": "PSA.119.1-PSA.119.10",
+    "bibleId": "a761ca71e0b3ddcf-01",
+    "bookId": "PSA",
+    "chapterIds": [
+      "PSA.119"
+    ],
+    "reference": "Psalm 119:1-10",
+    "content": [
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "ms2"
+        },
+        "items": [
+          {
+            "text": "Psalm 119",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "s"
+        },
+        "items": [
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "it"
+            },
+            "items": [
+              {
+                "text": "Meditations and Prayers Relating to the Law of God.",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "qa"
+        },
+        "items": [
+          {
+            "text": "Aleph",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.1",
+              "verseOrgIds": [
+                "PSA.119.1"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "1",
+              "style": "v",
+              "sid": "PSA 119:1"
+            },
+            "items": [
+              {
+                "text": "1",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "Blessed are those whose way is ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.1",
+              "verseOrgIds": [
+                "PSA.119.1"
+              ]
+            }
+          },
+          {
+            "text": "blameless,",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.1",
+              "verseOrgIds": [
+                "PSA.119.1"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:1"
+        },
+        "items": [
+          {
+            "text": "Who walk in the Law of the L",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.1",
+              "verseOrgIds": [
+                "PSA.119.1"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "sc"
+            },
+            "items": [
+              {
+                "text": "ord",
+                "type": "text",
+                "attrs": {
+                  "verseId": "PSA.119.1",
+                  "verseOrgIds": [
+                    "PSA.119.1"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": ".",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.1",
+              "verseOrgIds": [
+                "PSA.119.1"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "2",
+              "style": "v",
+              "sid": "PSA 119:2"
+            },
+            "items": [
+              {
+                "text": "2",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "Blessed are those who comply with His ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.2",
+              "verseOrgIds": [
+                "PSA.119.2"
+              ]
+            }
+          },
+          {
+            "text": "testimonies,",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.2",
+              "verseOrgIds": [
+                "PSA.119.2"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:2"
+        },
+        "items": [
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "it"
+            },
+            "items": [
+              {
+                "text": "And",
+                "type": "text",
+                "attrs": {
+                  "verseId": "PSA.119.2",
+                  "verseOrgIds": [
+                    "PSA.119.2"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " seek Him with all ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.2",
+              "verseOrgIds": [
+                "PSA.119.2"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "it"
+            },
+            "items": [
+              {
+                "text": "their",
+                "type": "text",
+                "attrs": {
+                  "verseId": "PSA.119.2",
+                  "verseOrgIds": [
+                    "PSA.119.2"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " heart.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.2",
+              "verseOrgIds": [
+                "PSA.119.2"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "3",
+              "style": "v",
+              "sid": "PSA 119:3"
+            },
+            "items": [
+              {
+                "text": "3",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "They also do no injustice;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.3",
+              "verseOrgIds": [
+                "PSA.119.3"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:3"
+        },
+        "items": [
+          {
+            "text": "They walk in His ways.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.3",
+              "verseOrgIds": [
+                "PSA.119.3"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "4",
+              "style": "v",
+              "sid": "PSA 119:4"
+            },
+            "items": [
+              {
+                "text": "4",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "You have ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.4",
+              "verseOrgIds": [
+                "PSA.119.4"
+              ]
+            }
+          },
+          {
+            "text": "ordained Your precepts,",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.4",
+              "verseOrgIds": [
+                "PSA.119.4"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:4"
+        },
+        "items": [
+          {
+            "text": "That we are to keep ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.4",
+              "verseOrgIds": [
+                "PSA.119.4"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "it"
+            },
+            "items": [
+              {
+                "text": "them",
+                "type": "text",
+                "attrs": {
+                  "verseId": "PSA.119.4",
+                  "verseOrgIds": [
+                    "PSA.119.4"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " diligently.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.4",
+              "verseOrgIds": [
+                "PSA.119.4"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "5",
+              "style": "v",
+              "sid": "PSA 119:5"
+            },
+            "items": [
+              {
+                "text": "5",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "Oh that my ways may be established",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.5",
+              "verseOrgIds": [
+                "PSA.119.5"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:5"
+        },
+        "items": [
+          {
+            "text": "To keep Your statutes!",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.5",
+              "verseOrgIds": [
+                "PSA.119.5"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "6",
+              "style": "v",
+              "sid": "PSA 119:6"
+            },
+            "items": [
+              {
+                "text": "6",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "Then I will not be ashamed",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.6",
+              "verseOrgIds": [
+                "PSA.119.6"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:6"
+        },
+        "items": [
+          {
+            "text": "When I look at all Your commandments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.6",
+              "verseOrgIds": [
+                "PSA.119.6"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "7",
+              "style": "v",
+              "sid": "PSA 119:7"
+            },
+            "items": [
+              {
+                "text": "7",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will give thanks to You with uprightness of heart,",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:7"
+        },
+        "items": [
+          {
+            "text": "When I learn Your righteous judgments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "8",
+              "style": "v",
+              "sid": "PSA 119:8"
+            },
+            "items": [
+              {
+                "text": "8",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will keep Your statutes;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:8"
+        },
+        "items": [
+          {
+            "text": "Do not utterly abandon me!",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "qa"
+        },
+        "items": [
+          {
+            "text": "Beth",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "9",
+              "style": "v",
+              "sid": "PSA 119:9"
+            },
+            "items": [
+              {
+                "text": "9",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "¶How can a young man keep his way pure?",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:9"
+        },
+        "items": [
+          {
+            "text": "By keeping ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "it"
+            },
+            "items": [
+              {
+                "text": "it",
+                "type": "text",
+                "attrs": {
+                  "verseId": "PSA.119.9",
+                  "verseOrgIds": [
+                    "PSA.119.9"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " according to Your word.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "10",
+              "style": "v",
+              "sid": "PSA 119:10"
+            },
+            "items": [
+              {
+                "text": "10",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "With all my heart I have sought You;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:10"
+        },
+        "items": [
+          {
+            "text": "Do not let me wander from Your commandments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "verseCount": 10,
+    "copyright": "NEW AMERICAN STANDARD BIBLE® NASB® Copyright © 1960, 1971, 1977,1995, 2020 by The Lockman Foundation A Corporation Not for Profit La Habra, CA All Rights Reserved www.lockman.org"
+  }
+}

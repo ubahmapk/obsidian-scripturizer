@@ -1,0 +1,510 @@
+{
+  "data": {
+    "id": "LAM.3.22-LAM.3.26",
+    "orgId": "LAM.3.22-LAM.3.26",
+    "bibleId": "a556c5305ee15c3f-01",
+    "bookId": "LAM",
+    "chapterIds": [
+      "LAM.3"
+    ],
+    "reference": "Lamentations 3:22-26",
+    "content": [
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "s2"
+        },
+        "items": [
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "qac"
+            },
+            "items": [
+              {
+                "text": "ח",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": " ",
+            "type": "text"
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "tl"
+            },
+            "items": [
+              {
+                "text": "Cheth",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "22",
+              "style": "v",
+              "sid": "LAM 3:22"
+            },
+            "items": [
+              {
+                "text": "22",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "Because of the ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.22",
+              "verseOrgIds": [
+                "LAM.3.22"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "nd"
+            },
+            "items": [
+              {
+                "text": "Lord",
+                "type": "text",
+                "attrs": {
+                  "verseId": "LAM.3.22",
+                  "verseOrgIds": [
+                    "LAM.3.22"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": "’s faithful love ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.22",
+              "verseOrgIds": [
+                "LAM.3.22"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:22"
+        },
+        "items": [
+          {
+            "text": "we do not perish, ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.22",
+              "verseOrgIds": [
+                "LAM.3.22"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:22"
+        },
+        "items": [
+          {
+            "text": "for his mercies never end.",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.22",
+              "verseOrgIds": [
+                "LAM.3.22"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "23",
+              "style": "v",
+              "sid": "LAM 3:23"
+            },
+            "items": [
+              {
+                "text": "23",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "They are new every morning;",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.23",
+              "verseOrgIds": [
+                "LAM.3.23"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:23"
+        },
+        "items": [
+          {
+            "text": "great is your faithfulness! ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.23",
+              "verseOrgIds": [
+                "LAM.3.23"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "24",
+              "style": "v",
+              "sid": "LAM 3:24"
+            },
+            "items": [
+              {
+                "text": "24",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I say, “The ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.24",
+              "verseOrgIds": [
+                "LAM.3.24"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "nd"
+            },
+            "items": [
+              {
+                "text": "Lord",
+                "type": "text",
+                "attrs": {
+                  "verseId": "LAM.3.24",
+                  "verseOrgIds": [
+                    "LAM.3.24"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " is my portion, ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.24",
+              "verseOrgIds": [
+                "LAM.3.24"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:24"
+        },
+        "items": [
+          {
+            "text": "therefore I will put my hope in him.”",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.24",
+              "verseOrgIds": [
+                "LAM.3.24"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "s2"
+        },
+        "items": [
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "qac"
+            },
+            "items": [
+              {
+                "text": "ט",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": " ",
+            "type": "text"
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "tl"
+            },
+            "items": [
+              {
+                "text": "Teth",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "25",
+              "style": "v",
+              "sid": "LAM 3:25"
+            },
+            "items": [
+              {
+                "text": "25",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "The ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.25",
+              "verseOrgIds": [
+                "LAM.3.25"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "nd"
+            },
+            "items": [
+              {
+                "text": "Lord",
+                "type": "text",
+                "attrs": {
+                  "verseId": "LAM.3.25",
+                  "verseOrgIds": [
+                    "LAM.3.25"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": " is good to those who wait ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.25",
+              "verseOrgIds": [
+                "LAM.3.25"
+              ]
+            }
+          },
+          {
+            "text": " for him,",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.25",
+              "verseOrgIds": [
+                "LAM.3.25"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:25"
+        },
+        "items": [
+          {
+            "text": "to the person who seeks him.",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.25",
+              "verseOrgIds": [
+                "LAM.3.25"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "26",
+              "style": "v",
+              "sid": "LAM 3:26"
+            },
+            "items": [
+              {
+                "text": "26",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "It is good to wait quietly ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.26",
+              "verseOrgIds": [
+                "LAM.3.26"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "LAM 3:26"
+        },
+        "items": [
+          {
+            "text": "for salvation from the ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.26",
+              "verseOrgIds": [
+                "LAM.3.26"
+              ]
+            }
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "nd"
+            },
+            "items": [
+              {
+                "text": "Lord",
+                "type": "text",
+                "attrs": {
+                  "verseId": "LAM.3.26",
+                  "verseOrgIds": [
+                    "LAM.3.26"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "text": ". ",
+            "type": "text",
+            "attrs": {
+              "verseId": "LAM.3.26",
+              "verseOrgIds": [
+                "LAM.3.26"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "verseCount": 5,
+    "copyright": "© 2017 Holman Bible Publishers"
+  }
+}

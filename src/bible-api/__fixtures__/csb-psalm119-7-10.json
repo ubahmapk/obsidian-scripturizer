@@ -1,0 +1,281 @@
+{
+  "data": {
+    "id": "PSA.119.7-PSA.119.10",
+    "orgId": "PSA.119.7-PSA.119.10",
+    "bibleId": "a556c5305ee15c3f-01",
+    "bookId": "PSA",
+    "chapterIds": [
+      "PSA.119"
+    ],
+    "reference": "Psalms 119:7-10",
+    "content": [
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "7",
+              "style": "v",
+              "sid": "PSA 119:7"
+            },
+            "items": [
+              {
+                "text": "7",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will praise you with an upright heart ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:7"
+        },
+        "items": [
+          {
+            "text": "when I learn your righteous judgments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "8",
+              "style": "v",
+              "sid": "PSA 119:8"
+            },
+            "items": [
+              {
+                "text": "8",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will keep your statutes;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:8"
+        },
+        "items": [
+          {
+            "text": "never abandon me. ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "s2"
+        },
+        "items": [
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "qac"
+            },
+            "items": [
+              {
+                "text": "ב",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": " ",
+            "type": "text"
+          },
+          {
+            "name": "char",
+            "type": "tag",
+            "attrs": {
+              "style": "tl"
+            },
+            "items": [
+              {
+                "text": "Beth",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "9",
+              "style": "v",
+              "sid": "PSA 119:9"
+            },
+            "items": [
+              {
+                "text": "9",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "How can a young man keep his way pure?",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:9"
+        },
+        "items": [
+          {
+            "text": "By keeping your ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          },
+          {
+            "text": " word. ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "10",
+              "style": "v",
+              "sid": "PSA 119:10"
+            },
+            "items": [
+              {
+                "text": "10",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I have sought you with all my heart; ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q",
+          "vid": "PSA 119:10"
+        },
+        "items": [
+          {
+            "text": "don’t let me wander from your commands. ",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "verseCount": 4,
+    "copyright": "© 2017 Holman Bible Publishers"
+  }
+}
