@@ -17,6 +17,12 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: "development"
+    # typescript is pinned to ~6.0.x: ts-jest (peer <7) and typescript-eslint
+    # (peer <6.1.0) don't support anything newer, so a bump breaks `npm ci`
+    # (this broke the v0.6.0 release). Remove once both tools declare support.
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
   # GitHub Actions used by .github/workflows/release.yml.
   - package-ecosystem: "github-actions"
