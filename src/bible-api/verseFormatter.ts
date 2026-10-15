@@ -118,6 +118,51 @@ function stripCrossReferenceCallers(text: string): string {
 	return text.replace(/ ?# ?/g, "");
 }
 
+/**
+ * Strips the pilcrow (¶) paragraph mark NASB and AMP embed at the start of a paragraph's
+ * first verse (e.g. Ps 119:9 NASB "¶How can a young man…"). It is a typesetting mark, not
+ * reading text — paragraph breaks are already rendered from the para structure.
+ */
+function stripParagraphMarks(text: string): string {
+	return text.replace(/¶\s*/g, "");
+}
+
+/** Concatenates every text node under `node`, depth-first. */
+function textOf(node: JsonNode): string {
+	let out = typeof node.text === "string" ? node.text : "";
+	for (const child of node.items ?? []) {
+		if (isJsonNode(child)) out += textOf(child);
+	}
+	return out;
+}
+
+function containsStyle(nodes: JsonNode[], style: string): boolean {
+	return nodes.some((n) => isJsonNode(n) && (n.attrs?.style === style || containsStyle(n.items ?? [], style)));
+}
+
+/**
+ * The text of an acrostic letter heading para, exactly as the translation supplies it
+ * (issue #19) — never synthesized. Top-level items are joined with a single space so
+ * CSB's separate `qac` (Hebrew letter) and `tl` (transliteration) chars read "ח Cheth".
+ * Returns undefined for any para that is not an acrostic heading, or whose text is empty.
+ *
+ * Two markups exist in API.Bible's data: CSB's `s2` para holding a `qac` char, and a
+ * `qa` para (NASB, AMP, BSB). `qa` must be caught before the generic `q*` poetry test,
+ * which would otherwise append the letter to the preceding verse as a stray line. A para
+ * carrying a verse marker is never a heading.
+ */
+function acrosticHeadingText(style: string | undefined, items: JsonNode[]): string | undefined {
+	if (items.some((item) => item?.name === "verse")) return undefined;
+	const isHeading = style === "qa" || (typeof style === "string" && /^s\d+$/.test(style) && containsStyle(items, "qac"));
+	if (!isHeading) return undefined;
+	const text = items
+		.filter(isJsonNode)
+		.map((item) => textOf(item).replace(/\s+/g, " ").trim())
+		.filter((t) => t.length > 0)
+		.join(" ");
+	return text.length > 0 ? text : undefined;
+}
+
 function walkItems(nodes: JsonNode[], state: ParserState): void {
 	for (const node of nodes) {
 		// `sup`-styled chars are the CSB's raised text-critical apparatus (e.g. Matt 6:13's
@@ -136,7 +181,7 @@ function walkItems(nodes: JsonNode[], state: ParserState): void {
 			// poetry continuation lines to the right chapter.
 			const chapter = chapterFromVerseId(node.attrs?.verseId);
 			if (chapter !== undefined) state.chapter = chapter;
-			state.buffer += stripCrossReferenceCallers(node.text);
+			state.buffer += stripParagraphMarks(stripCrossReferenceCallers(node.text));
 			continue;
 		}
 		if (Array.isArray(node.items)) {
@@ -178,6 +223,18 @@ export function parsePassageJson(passageData: unknown): FormattedBlock[] {
 		if (!isJsonNode(node) || !Array.isArray(node.items)) continue;
 
 		const style = node.attrs?.style;
+
+		// Acrostic letter headings (CSB `s2`+`qac`, NASB/AMP/BSB `qa`) become label blocks —
+		// same tight italic line as a psalm superscription. Like `d`, they leave the verse
+		// accumulation state alone.
+		const heading = acrosticHeadingText(style, node.items);
+		if (heading !== undefined) {
+			state.blocks.push({ kind: "label", text: heading });
+			lastKind = "label";
+			continue;
+		}
+		if (style === "qa") continue; // empty acrostic heading: nothing to show, and never poetry
+
 		// Editorial section headings (s1, s2, …) are reading aids, not text — dropped.
 		if (typeof style === "string" && /^s\d+$/.test(style)) continue;
 
@@ -216,6 +273,17 @@ export function formatCalloutHeader(linkText: string, url: string): string {
 }
 
 /**
+ * A label whose first strong character is Hebrew/Arabic (an acrostic letter like "ח Cheth")
+ * makes the renderer flip the whole callout line to right-to-left. A leading LEFT-TO-RIGHT
+ * MARK (U+200E) makes the line's first strong character LTR, keeping the line LTR while the
+ * letter itself still displays correctly. Added only when RTL text is present, so every
+ * other label stays byte-identical. Sits before the `_` so emphasis parsing is untouched.
+ */
+function labelDirectionMark(text: string): string {
+	return /[֐-ࣿ]/.test(text) ? "‎" : "";
+}
+
+/**
  * Assembles the callout body, mirroring the Crossway engine's rendering conventions
  * (esvFormatter.ts `formatEsvBody`): bold `{chapter.}verse` labels — chapter-qualified
  * on the first verse of each chapter, bare otherwise. A verse spanning multiple source
@@ -242,7 +310,7 @@ export function formatCalloutBody(blocks: FormattedBlock[], chapter: number): st
 			// Pushing the label and resetting the paragraph marker means the next verse
 			// never emits a ">" separator after it, and the label never emits one before
 			// itself — tight on both sides.
-			lines.push(`> _${block.text}_`);
+			lines.push(`> ${labelDirectionMark(block.text)}_${block.text}_`);
 			lastParagraphIndex = undefined;
 			continue;
 		}

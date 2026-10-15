@@ -1,0 +1,267 @@
+{
+  "data": {
+    "id": "PSA.119.7-PSA.119.10",
+    "orgId": "PSA.119.7-PSA.119.10",
+    "bibleId": "bba9f40183526463-01",
+    "bookId": "PSA",
+    "chapterIds": [
+      "PSA.119"
+    ],
+    "reference": "Psalms 119:7-10",
+    "content": [
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "7",
+              "style": "v",
+              "sid": "PSA 119:7"
+            },
+            "items": [
+              {
+                "text": "7",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will praise You with an upright heart",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q2",
+          "vid": "PSA 119:7"
+        },
+        "items": [
+          {
+            "text": "when I learn Your righteous judgments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.7",
+              "verseOrgIds": [
+                "PSA.119.7"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "8",
+              "style": "v",
+              "sid": "PSA 119:8"
+            },
+            "items": [
+              {
+                "text": "8",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "I will keep Your statutes;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q2",
+          "vid": "PSA 119:8"
+        },
+        "items": [
+          {
+            "text": "do not utterly forsake me.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "b"
+        },
+        "items": []
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "qa"
+        },
+        "items": [
+          {
+            "text": "BETH",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.8",
+              "verseOrgIds": [
+                "PSA.119.8"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "b"
+        },
+        "items": []
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "9",
+              "style": "v",
+              "sid": "PSA 119:9"
+            },
+            "items": [
+              {
+                "text": "9",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "How can a young man keep his way pure?",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q2",
+          "vid": "PSA 119:9"
+        },
+        "items": [
+          {
+            "text": "By guarding it according to Your word.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.9",
+              "verseOrgIds": [
+                "PSA.119.9"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q1"
+        },
+        "items": [
+          {
+            "name": "verse",
+            "type": "tag",
+            "attrs": {
+              "number": "10",
+              "style": "v",
+              "sid": "PSA 119:10"
+            },
+            "items": [
+              {
+                "text": "10",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "text": "With all my heart I have sought You;",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "para",
+        "type": "tag",
+        "attrs": {
+          "style": "q2",
+          "vid": "PSA 119:10"
+        },
+        "items": [
+          {
+            "text": "do not let me stray from Your commandments.",
+            "type": "text",
+            "attrs": {
+              "verseId": "PSA.119.10",
+              "verseOrgIds": [
+                "PSA.119.10"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "verseCount": 4,
+    "copyright": "The Holy Bible, Berean Standard Bible, BSB is produced in cooperation with Bible Hub, Discovery Bible, OpenBible.com, and the Berean Bible Translation Committee. This text of God's Word has been dedicated to the public domain"
+  }
+}
