@@ -118,6 +118,15 @@ function stripCrossReferenceCallers(text: string): string {
 	return text.replace(/ ?# ?/g, "");
 }
 
+/**
+ * Strips the pilcrow (¶) paragraph mark NASB and AMP embed at the start of a paragraph's
+ * first verse (e.g. Ps 119:9 NASB "¶How can a young man…"). It is a typesetting mark, not
+ * reading text — paragraph breaks are already rendered from the para structure.
+ */
+function stripParagraphMarks(text: string): string {
+	return text.replace(/¶\s*/g, "");
+}
+
 /** Concatenates every text node under `node`, depth-first. */
 function textOf(node: JsonNode): string {
 	let out = typeof node.text === "string" ? node.text : "";
@@ -172,7 +181,7 @@ function walkItems(nodes: JsonNode[], state: ParserState): void {
 			// poetry continuation lines to the right chapter.
 			const chapter = chapterFromVerseId(node.attrs?.verseId);
 			if (chapter !== undefined) state.chapter = chapter;
-			state.buffer += stripCrossReferenceCallers(node.text);
+			state.buffer += stripParagraphMarks(stripCrossReferenceCallers(node.text));
 			continue;
 		}
 		if (Array.isArray(node.items)) {
@@ -264,6 +273,17 @@ export function formatCalloutHeader(linkText: string, url: string): string {
 }
 
 /**
+ * A label whose first strong character is Hebrew/Arabic (an acrostic letter like "ח Cheth")
+ * makes the renderer flip the whole callout line to right-to-left. A leading LEFT-TO-RIGHT
+ * MARK (U+200E) makes the line's first strong character LTR, keeping the line LTR while the
+ * letter itself still displays correctly. Added only when RTL text is present, so every
+ * other label stays byte-identical. Sits before the `_` so emphasis parsing is untouched.
+ */
+function labelDirectionMark(text: string): string {
+	return /[֐-ࣿ]/.test(text) ? "‎" : "";
+}
+
+/**
  * Assembles the callout body, mirroring the Crossway engine's rendering conventions
  * (esvFormatter.ts `formatEsvBody`): bold `{chapter.}verse` labels — chapter-qualified
  * on the first verse of each chapter, bare otherwise. A verse spanning multiple source
@@ -290,7 +310,7 @@ export function formatCalloutBody(blocks: FormattedBlock[], chapter: number): st
 			// Pushing the label and resetting the paragraph marker means the next verse
 			// never emits a ">" separator after it, and the label never emits one before
 			// itself — tight on both sides.
-			lines.push(`> _${block.text}_`);
+			lines.push(`> ${labelDirectionMark(block.text)}_${block.text}_`);
 			lastParagraphIndex = undefined;
 			continue;
 		}

@@ -28,9 +28,9 @@ describe("acrostic letter headings", () => {
 		expect(versesOf(blocks).map((v) => v.verse)).toEqual([22, 23, 24, 25, 26]);
 
 		const body = formatCalloutBody(blocks, 3).split("\n");
-		expect(body[0]).toBe("> _ח Cheth_");
+		expect(body[0]).toBe("> ‎_ח Cheth_");
 		expect(body[1]).toMatch(/^> \*\*3\.22\*\* /);
-		const teth = body.indexOf("> _ט Teth_");
+		const teth = body.indexOf("> ‎_ט Teth_");
 		expect(teth).toBeGreaterThan(0);
 		expect(body[teth - 1]).not.toBe(">"); // tight: no blank separator above
 		expect(body[teth + 1]).toMatch(/^> \*\*25\*\* /); // ...or below
@@ -55,6 +55,26 @@ describe("acrostic letter headings", () => {
 		}
 		const verse8 = versesOf(blocks).find((v) => v.verse === 8);
 		expect(verse8?.lines.join(" ")).not.toMatch(/Beth|BETH/);
+	});
+
+	test("a label containing Hebrew is forced left-to-right with a leading LRM, so the callout line does not flip RTL", () => {
+		const body = formatCalloutBody(parsePassageJson(fixtureData("csb-lam3-22-26.json")), 3).split("\n");
+		expect(body[0]).toBe("> ‎_ח Cheth_");
+		const teth = body.find((l) => l.includes("Teth"));
+		expect(teth).toBe("> ‎_ט Teth_");
+	});
+
+	test("labels without RTL characters carry no direction mark (output byte-identical)", () => {
+		const body = formatCalloutBody(parsePassageJson(fixtureData("nasb-psalm119-1-10.json")), 119);
+		expect(body).toContain("> _Beth_");
+		expect(body).not.toContain("‎");
+	});
+
+	test("NASB's pilcrow paragraph mark is stripped from verse text", () => {
+		const blocks = parsePassageJson(fixtureData("nasb-psalm119-1-10.json"));
+		const text = versesOf(blocks).flatMap((v) => v.lines).join("\n");
+		expect(text).not.toContain("¶");
+		expect(versesOf(blocks).find((v) => v.verse === 9)?.lines[0]).toMatch(/^How can a young man/);
 	});
 
 	test("an s2 heading without a qac letter is still dropped; empty qa yields no label", () => {
